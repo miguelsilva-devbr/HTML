@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name= "viewport" content="width=device-width, initial-scale -1.0">
+<title> Site Comercial Responsivo</title>
+<style>
+body{
+  margin: 0;
+  padding: 0;
+}
+  body{
+    box-sizing: border-box;
+    font-family:Arial, Helvetica, sans-serif;
+  }
+body{
+background: #f8f8f8
+}
+/* --------------- HEADER ---------------- */
+header{
+    width:100%;
+    background:#1b1b1b;
+    color:white;
+    padding:20px;
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:999;
+}
+header .container{
+    max-width:1200px;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+  header h1{
+font: size 26px;
+    font-weight: bold;
+  }
+  nav ul li a:hover{
+color:#00e1ff;  
+  }
+  /* --------------- HEADER ---------------- */
+  .hero{
+    background-image:url("raphinha-barcelona.jpg")center/cover no-repeat;
+    height: 500px;
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    margin-top: 90px;
+    color:white;
+}
+  .hero h2{
+font-size:48px;
+    text-shadow: 0 0 10px #000;
+  } hero p{
+    font-size: 20px;
+    margin: 20px 0;
+  }
+  .hero a{
+padding: 15px;
+    background: #00d0ff;
+    color: #000;
+    font-weight: bold;
+    text-decoration: nome;
+  border-radius:8px;
+    transition: 0.3s;
+    
+  }
+
+  .hero a:hover{
+background: white
+  }
+  /* --------------- SERVIÇOS ---------------- */
+  .services{
+    max-width: 1200px;
+    margin:50px auto;
+    text-align: center;
+    padding: 20px;
+    
+  }
+.services h3{
+  font-size:32px;
+  margin-bottom: 20px;
+  
+}
+.cards{
+  display: grid;
+  gap: 30px;
+  grid-template-columns: repeat(3, 1fr);
+  
+}
+  
+  .card{
+  background: white;
+  padding:25px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0 0.1);
+    transition: 0.3s;
+}.card:hover{
+    transform:translateY(-5px);
+    }
+  .card h4{
+    font-size: 22px;
+    margin-bottom:10px;
+  }
+    /* --------------- FOOTER ---------------- */
+  footer{
+    background: #1b1b1b;
+    color:white;
+    padding: 20px;
+    text-align: center;
+    margin-top: 40px;
+  }
+  /* --------------- RESPONSIVIDADE ---------------- */
+  /*Tablets*/
+  @media(max-width:900px){
+    nav ul{
+      gap:15px;
+    }.hero h2{font-size:38px}
+    .cards{
+  grid-template-columns: repeat(2,1fr);
+  }
+  }
+  /*Celulares*/
+  @media(max-width:600px){
+    header .container{
+flex-direction: column;
+      gap:10px;
+    }
+  }nav ul {
+flex-direction: column;
+    gap:10px;
+  }
+  .hero{
+height:auto;
+    padding: 70px 20px;  
+  }
+  .hero h2{font-size:30px;}
+  .hero p{font-size:18px;}
+  .cards{
+    grid-template-columns: 1fr;
+  }
+
+  </style>
+</head>
+<body>
+<header>
+
+<div class="container">
+<h1> Raphinha Ballon d'or!</h1>
+<nav>
+<ul>
+<li><a href="#"> Início </a> </li>
+<li><a href="#"> Serviços </a> </li>
+<li><a href="#"> Sobre </a> </li>
+<li><a href="#"> Contato </a> </li>
+</ul>
+</nav>
+</header>
+<section class="hero">
+<div>
+  <h2>Seu Negócio com Mais Resultados</h2>
+        <p>Numeros Atualizados pra que voce fique por dentro de tudo!.</p>
+        <a href="#">Fale Conosco</a>
+    </div>
+</section>
+<section class="services">
+    <h3>Nossos Serviços</h3>
+    <div class="cards">
+        <div class="card">
+            <h4>Cadê os Galacticos?</h4>
+            <p> SUPER COPA DA ESPANHA: 5 a 2/p>
+              <p>COPA DEL REY: 3 a 2 </p>
+          <p>LALIGA: 4 a 0 e 4 a 3</p>
+          <P>Carrasco do RealVARdrid, fez 3 gols e 2 assistencia nos classicos da Temporada(INCLUINDO A FINAL DA SUPERCOPA).</P>
+        </div>
+        <div class="card">
+            <h4> Raphinha > Dembele </h4>
+           <p> UEFA CHAMPIONS LEAGUE: 14 Jogos, 13 Gols e 7 Assistencias</p>
+          <p>LALIGA: 36 Jogos, 18 Gols e 10 Assistencias</p>
+          <p>COPAS NACIONAIS (ESPANHA): 3 Gols e 8 Assistencias em MATA-MATAS dos Titulos</p>
+          <p>SELEÇAO BR: 16 Jogos, 5 Gols e 1 Assistencia, entre eliminatorias e Copa America</p>
+        </div>
+<div class="card">
+<h4> Temporada 24/25 (34 gols e 25 assistências em 57 partidas)</h4>
+<p>Sites profissional em mostrar fatos.</p>
+</div>
+</div>
+</section>
+<footer>
+</footer>
+&copy; Mioguel Silva| Todos os direitos reservados.
+<body>
+<html>
