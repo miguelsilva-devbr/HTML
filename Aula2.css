@@ -1,0 +1,19 @@
+body{
+  background-color:orange;
+  text-align: center;
+}
+h1{
+  font-family:Verdana;
+  font-size:100px; 
+}
+p{
+font-family:arial;
+  font-size:40px;color:white;
+    font-weight:bold;
+}
+.caixa{
+  background-color:orange;
+  width:50px; height:500px;
+  display:inline-block;
+}
+#box{background-color:red;}
