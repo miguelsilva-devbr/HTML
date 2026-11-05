@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title> RESTAURANTE - JAPA — Cardápio</title>
+  <link href="">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --preto:      #0A0A0A;
+      --carvao:     #111111;
+      --cinza-esc:  #1A1A1A;
+      --cinza-med:  #2A2A2A;
+      --cinza-brd:  #333333;
+      --cinza-txt:  #888888;
+      --vermelho:   #E8272A;
+      --vermelho-s: #C01F22;
+      --laranja:    #F07030;
+      --branco:     #FAFAFA;
+      --creme:      #F5F0E8;
+      --ouro:       #C8A96E;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: var(--preto);
+      color: var(--branco);
+      overflow-x: hidden;
+    }
+
+    /* ══ HERO ══ */
+    .hero {
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      padding: 2rem 1.5rem;
+    }
+
+    /* grade japonesa de fundo */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(232,39,42,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(232,39,42,0.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+    }
+
+    /* gradiente radial sobre a grade */
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 70% at 50% 60%, rgba(10,10,10,0) 0%, var(--preto) 75%);
+      pointer-events: none;
+    }
+
+    /* kanji decorativo */
+    .hero-kanji {
+      position: absolute;
+      font-family: 'Noto Serif JP', serif;
+      font-size: 28rem;
+      font-weight: 900;
+      color: rgba(232,39,42,0.04);
+      line-height: 1;
+      user-select: none;
+      pointer-events: none;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      white-space: nowrap;
+      z-index: 0;
+    }
+
+    .hero-conteudo { position: relative; z-index: 2; max-width: 720px; }
+
+    .hero-pais {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--vermelho);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+    }
+    .hero-pais::before, .hero-pais::after {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 1px;
+      background: var(--vermelho);
+    }
+
+    .hero-logo-jp {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 900;
+      color: var(--vermelho);
+      letter-spacing: -0.02em;
+      line-height: 1;
+      display: block;
+    }
+
+    .hero-logo-br {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.5rem, 7vw, 5.5rem);
+      font-weight: 700;
+      color: var(--branco);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      line-height: 1;
+      margin-top: 0.3rem;
+    }
+
+    .hero-tagline {
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: var(--cinza-txt);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-top: 1.5rem;
+    }
+
+    .hero-badges {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+
+    .badge {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--cinza-txt);
+      border: 1px solid var(--cinza-brd);
+      padding: 0.4rem 0.9rem;
+    }
+    .badge.destaque { border-color: var(--vermelho); color: var(--vermelho); }
+
+    .hero-cta-row {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 2.5rem;
+    }
+
+    .btn-vm {
+      background: var(--vermelho);
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.9rem 2rem;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-vm:hover { background: var(--vermelho-s); transform: translateY(-2px); }
+
+    .btn-out {
+      border: 1px solid var(--cinza-brd);
+      color: var(--cinza-txt);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.9rem 2rem;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-out:hover { border-color: var(--branco); color: var(--branco); }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--cinza-brd);
+      z-index: 2;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    .scroll-bar {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--vermelho), transparent);
+      animation: desce 1.8s ease-in-out infinite;
+    }
+    @keyframes desce { 0%,100%{opacity:1;transform:scaleY(1)} 50%{opacity:0.3;transform:scaleY(0.5)} }
+
+    /* ══ NAV ══ */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10,10,10,0.96);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--cinza-brd);
+    }
+    .nav-inner {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .nav-inner::-webkit-scrollbar { display: none; }
+    .nav-logo {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.3rem;
+      font-weight: 900;
+      color: var(--vermelho);
+      white-space: nowrap;
+      padding: 1rem 0;
+      margin-right: auto;
+      letter-spacing: 0.05em;
+    }
+    .nav-link {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--cinza-txt);
+      text-decoration: none;
+      padding: 1rem 0.6rem;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .nav-link:hover, .nav-link.ativo { color: var(--vermelho); border-bottom-color: var(--vermelho); }
+
+    /* ══ TICKER ══ */
+    .ticker {
+      background: var(--vermelho);
+      padding: 0.65rem 0;
+      overflow: hidden;
+    }
+    .ticker-inner {
+      display: flex;
+      animation: rola 25s linear infinite;
+      white-space: nowrap;
+    }
+    @keyframes rola { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+    .t-item {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.9);
+      padding: 0 2.5rem;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+    .t-item::after { content: '//'; opacity: 0.5; }
+
+    /* ══ SEÇÕES ══ */
+    .wrap { max-width: 1140px; margin: 0 auto; padding: 5.5rem 1.5rem; }
+
+    .s-head {
+      display: flex;
+      align-items: flex-end;
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--cinza-brd);
+    }
+
+    .s-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--vermelho);
+      letter-spacing: 0.15em;
+      padding: 0.3rem 0.6rem;
+      border: 1px solid var(--vermelho);
+      white-space: nowrap;
+      margin-bottom: 0.4rem;
+    }
+
+    .s-titulo {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700;
+      color: var(--branco);
+      line-height: 1;
+    }
+    .s-titulo em { font-style: normal; color: var(--vermelho); }
+    .s-sub {
+      font-size: 0.8rem;
+      color: var(--cinza-txt);
+      margin-top: 0.4rem;
+      letter-spacing: 0.08em;
+    }
+
+    /* ══ CARD RODÍZIO HERO ══ */
+    .rodizio-hero {
+      background: var(--cinza-esc);
+      border: 1px solid var(--cinza-brd);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      margin-bottom: 1px;
+      overflow: hidden;
+    }
+    @media(max-width:680px){ .rodizio-hero{grid-template-columns:1fr;} }
+
+    .rh-conteudo {
+      padding: 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .rh-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--vermelho);
+      margin-bottom: 1rem;
+    }
+
+    .rh-nome {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 900;
+      color: var(--branco);
+      line-height: 1.05;
+    }
+
+    .rh-desc {
+      font-size: 0.85rem;
+      color: var(--cinza-txt);
+      line-height: 1.75;
+      margin-top: 1rem;
+      max-width: 400px;
+    }
+
+    .rh-preco-row {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .rh-preco {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--vermelho);
+      line-height: 1;
+    }
+
+    .rh-preco-det { font-size: 0.78rem; color: var(--cinza-txt); }
+
+    .rh-visual {
+      background: var(--cinza-med);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 280px;
+      font-size: 10rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .rh-visual::before {
+      content: '魚';
+      position: absolute;
+      font-family: 'Noto Serif JP', serif;
+      font-size: 18rem;
+      color: rgba(232,39,42,0.05);
+      font-weight: 900;
+      line-height: 1;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    /* ══ GRID ITENS DO RODÍZIO ══ */
+    .grid-itens {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 1px;
+      background: var(--cinza-brd);
+    }
+
+    .item-card {
+      background: var(--carvao);
+      padding: 1.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      transition: background 0.2s;
+      position: relative;
+    }
+    .item-card:hover { background: var(--cinza-esc); }
+
+    /* borda left vermelha */
+    .item-card.destaque { border-left: 2px solid var(--vermelho); }
+
+    .ic-cat {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--vermelho);
+    }
+
+    .ic-nome {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--branco);
+      line-height: 1.2;
+    }
+
+    .ic-desc {
+      font-size: 0.8rem;
+      color: var(--cinza-txt);
+      line-height: 1.65;
+    }
+
+    .ic-badges {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
+    }
+
+    .ic-badge {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.5rem;
+      border-radius: 0;
+    }
+    .ic-badge.veg { background: rgba(50,180,50,0.12); color: #4caf50; border: 1px solid rgba(50,180,50,0.25); }
+    .ic-badge.hot { background: rgba(232,39,42,0.12); color: var(--vermelho); border: 1px solid rgba(232,39,42,0.25); }
+    .ic-badge.pop { background: rgba(200,169,110,0.12); color: var(--ouro); border: 1px solid rgba(200,169,110,0.25); }
+    .ic-badge.lim { background: rgba(100,100,100,0.12); color: #888; border: 1px solid rgba(100,100,100,0.2); }
+
+    /* ══ À LA CARTE ══ */
+    .alacarte-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 1px;
+      background: var(--cinza-brd);
+    }
+
+    .alc-card {
+      background: var(--carvao);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      transition: background 0.2s;
+    }
+    .alc-card:hover { background: var(--cinza-esc); }
+
+    .alc-cat {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ouro);
+    }
+
+    .alc-nome {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--branco);
+      line-height: 1.15;
+    }
+
+    .alc-desc {
+      font-size: 0.8rem;
+      color: var(--cinza-txt);
+      line-height: 1.7;
+    }
+
+    .alc-rodape {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+      padding-top: 1.2rem;
+      border-top: 1px solid var(--cinza-brd);
+    }
+
+    .alc-preco {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--vermelho);
+    }
+
+    .alc-serve {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      color: var(--cinza-txt);
+      letter-spacing: 0.08em;
+    }
+
+    /* ══ BEBIDAS ══ */
+    .beb-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1px;
+      background: var(--cinza-brd);
+    }
+    .beb-card {
+      background: var(--carvao);
+      padding: 1.2rem 1.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      transition: background 0.2s;
+    }
+    .beb-card:hover { background: var(--cinza-esc); }
+    .beb-nome { font-size: 0.88rem; font-weight: 500; color: var(--branco); }
+    .beb-det { font-size: 0.72rem; color: var(--cinza-txt); margin-top: 0.15rem; }
+    .beb-preco {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--ouro);
+      white-space: nowrap;
+    }
+
+    /* ══ AVISO RODÍZIO ══ */
+    .aviso-bloco {
+      background: var(--cinza-esc);
+      border: 1px solid var(--cinza-brd);
+      border-left: 3px solid var(--ouro);
+      padding: 1.5rem 2rem;
+      margin-top: 2rem;
+    }
+    .aviso-titulo {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ouro);
+      margin-bottom: 0.6rem;
+    }
+    .aviso-txt {
+      font-size: 0.82rem;
+      color: var(--cinza-txt);
+      line-height: 1.75;
+    }
+    .aviso-txt strong { color: var(--branco); }
+
+    /* ══ SEÇÃO INFO ══ */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1px;
+      background: var(--cinza-brd);
+    }
+    .info-bloco {
+      background: var(--carvao);
+      padding: 2.5rem;
+    }
+    .info-icone { font-size: 1.6rem; margin-bottom: 0.8rem; }
+    .info-titulo {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--vermelho);
+      margin-bottom: 0.7rem;
+    }
+    .info-txt {
+      font-size: 0.83rem;
+      color: var(--cinza-txt);
+      line-height: 1.8;
+    }
+    .info-txt strong { color: var(--branco); }
+
+    /* ══ FAIXA CENTRAL ══ */
+    .faixa-escura {
+      background: var(--carvao);
+      border-top: 1px solid var(--cinza-brd);
+      border-bottom: 1px solid var(--cinza-brd);
+      padding: 4rem 1.5rem;
+      text-align: center;
+    }
+    .faixa-num {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(4rem, 12vw, 9rem);
+      font-weight: 900;
+      color: rgba(232,39,42,0.08);
+      line-height: 1;
+      position: relative;
+    }
+    .faixa-num span {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: clamp(0.85rem, 2vw, 1.1rem);
+      color: var(--branco);
+      white-space: nowrap;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 300;
+      letter-spacing: 0.2em;
+    }
+
+    /* ══ FOOTER ══ */
+    footer {
+      background: var(--carvao);
+      border-top: 1px solid var(--cinza-brd);
+      padding: 4rem 1.5rem 2.5rem;
+      text-align: center;
+    }
+    .footer-logo-jp {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--vermelho);
+      line-height: 1;
+    }
+    .footer-logo-br {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--branco);
+      margin-top: 0.2rem;
+    }
+    .footer-sub {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cinza-txt);
+      margin-top: 0.5rem;
+    }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+    .footer-link {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--cinza-txt);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-link:hover { color: var(--vermelho); }
+    .footer-copy {
+      margin-top: 2.5rem;
+      font-size: 0.68rem;
+      color: var(--cinza-brd);
+    }
+
+    /* ══ WHATSAPP ══ */
+    .wpp {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 200;
+      width: 56px;
+      height: 56px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.35);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .wpp:hover { transform: scale(1.1); box-shadow: 0 8px 30px rgba(37,211,102,0.55); }
+    .wpp svg { width: 28px; height: 28px; fill: #fff; }
+
+    /* ══ RESPONSIVE ══ */
+    @media(max-width:600px){
+      .grid-itens, .alacarte-grid, .beb-grid, .info-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-kanji">魚</div>
+  <div class="hero-conteudo">
+    <div class="hero-pais">Culinária Oriental · Recife</div>
+    <div class="hero-logo-jp">うどん</div>
+    <div class="hero-logo-br">UDON</div>
+    <p class="hero-tagline">Cozinha Oriental · Japonesa & Chinesa · Desde 2014</p>
+    <div class="hero-badges">
+      <span class="badge destaque">🍣 Rodízio de Sushi</span>
+      <span class="badge">🍱 À La Carte</span>
+      <span class="badge">🌿 Opções Veganas</span>
+      <span class="badge">48K no Instagram</span>
+    </div>
+    <div class="hero-cta-row">
+      <a href="#rodizio" class="btn-vm">Ver Rodízio ↓</a>
+      <a href="#alacarte" class="btn-out">À La Carte</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-bar"></div>
+    scroll
+  </div>
+</section>
+
+<!-- ══ TICKER ══ -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="t-item">Desde 2014</span>
+    <span class="t-item">Rodízio de Sushi</span>
+    <span class="t-item">À La Carte</span>
+    <span class="t-item">Opções Veganas</span>
+    <span class="t-item">Pedidos por Tablet</span>
+    <span class="t-item">Sem Reservas · Fila de Espera</span>
+    <span class="t-item">Casa Amarela · Zona Norte</span>
+    <span class="t-item">Terça a Domingo</span>
+    <span class="t-item">Desde 2014</span>
+    <span class="t-item">Rodízio de Sushi</span>
+    <span class="t-item">À La Carte</span>
+    <span class="t-item">Opções Veganas</span>
+    <span class="t-item">Pedidos por Tablet</span>
+    <span class="t-item">Sem Reservas · Fila de Espera</span>
+    <span class="t-item">Casa Amarela · Zona Norte</span>
+    <span class="t-item">Terça a Domingo</span>
+  </div>
+</div>
+
+<!-- ══ NAV ══ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-logo">うどん UDON</div>
+    <a href="#rodizio" class="nav-link">Rodízio</a>
+    <a href="#alacarte" class="nav-link">À La Carte</a>
+    <a href="#quentes" class="nav-link">Pratos Quentes</a>
+    <a href="#sobremesas" class="nav-link">Sobremesas</a>
+    <a href="#bebidas" class="nav-link">Bebidas</a>
+    <a href="#info" class="nav-link">Horários</a>
+  </div>
+</nav>
+
+<!-- ══ 01 · RODÍZIO ══ -->
+<section id="rodizio">
+  <div class="wrap">
+    <div class="s-head">
+      <div>
+        <div class="s-num">01 / 06</div>
+        <h2 class="s-titulo">Rodízio <em>de Sushi</em></h2>
+        <p class="s-sub">All-you-can-eat · Peças baby · Variedade máxima · Pedidos por tablet</p>
+      </div>
+    </div>
+
+    <!-- CARD HERÓI DO RODÍZIO -->
+    <div class="rodizio-hero">
+      <div class="rh-conteudo">
+        <div class="rh-tag">// Experiência Principal</div>
+        <div class="rh-nome">Rodízio Completo<br>de Sushi & Oriental</div>
+        <p class="rh-desc">Peças baby com mais recheio e menos arroz — a vantagem de comer mais sem encher. Pedidos feitos por tablet com foto de cada item. Inclui sushis, temakis, hot rolls, guioza, yakisoba e sobremesas. Salmão fresco, tudo bem temperado.</p>
+        <div class="rh-preco-row">
+          <div class="rh-preco">R$110</div>
+          <div>
+            <div class="rh-preco-det">por pessoa · adulto</div>
+            <div class="rh-preco-det" style="color:var(--ouro)">Criança (até 10 anos): R$60</div>
+          </div>
+        </div>
+      </div>
+      <div class="rh-visual">🍣</div>
+    </div>
+
+    <!-- ITENS DO RODÍZIO -->
+    <div class="grid-itens" style="margin-top:1px;">
+
+      <!-- FRIOS -->
+      <div class="item-card destaque">
+        <div class="ic-cat">Sushis Frios</div>
+        <div class="ic-nome">Salmão · Atum · Camarão</div>
+        <p class="ic-desc">Niguiris e uramakis com salmão fresco, atum e camarão. Arroz temperado no ponto certo, peça pequena para você comer mais.</p>
+        <div class="ic-badges"><span class="ic-badge pop">⭐ mais pedido</span></div>
+      </div>
+
+      <div class="item-card">
+        <div class="ic-cat">Uramaki</div>
+        <div class="ic-nome">Philadelphia Roll</div>
+        <p class="ic-desc">Salmão, cream cheese e pepino. Clássico de qualquer rodízio, aqui bem-executado e recheado.</p>
+        <div class="ic-badges"><span class="ic-badge pop">popular</span><span class="ic-badge lim">limite: 10 un.</span></div>
+      </div>
+
+      <div class="item-card">
+        <div class="ic-cat">Uramaki</div>
+        <div class="ic-nome">Kani Roll</div>
+        <p class="ic-desc">Kani, pepino, cream cheese e gergelim. Leve e saboroso, perfeito para alternar com os mais encorpados.</p>
+        <div class="ic-badges"><span class="ic-badge lim">limite: 10 un.</span></div>
+      </div>
+
+      <div class="item-card destaque">
+        <div class="ic-cat">Hot Roll</div>
+        <div class="ic-nome">Salmão Empanado · Camarão Empanado</div>
+        <p class="ic-desc">Peças empanadas e fritas com recheio quente. Crocantes por fora, cremosos por dentro. Atenção: chegam mais devagar.</p>
+        <div class="ic-badges"><span class="ic-badge hot">🔥 quente</span><span class="ic-badge pop">destaque</span></div>
+      </div>
+
+      <div class="item-card">
+        <div class="ic-cat">Temaki</div>
+        <div class="ic-nome">Temaki Salmão · Atum · Vegano</div>
+        <p class="ic-desc">Cone de alga com recheio generoso e quase sem arroz — praticamente só recheio. O queridinho do rodízio.</p>
+        <div class="ic-badges"><span class="ic-badge pop">⭐ favorito</span></div>
+      </div>
+
+      <div class="item-card">
+        <div class="ic-cat">Niguiri</div>
+        <div class="ic-nome">Salmão Maçaricado</div>
+        <p class="ic-desc">Niguiri de salmão finalizado com maçarico, leve camada de shoyu e gergelim. Um dos mais pedidos no tablet.</p>
+        <div class="ic-badges"><span class="ic-badge pop">top pedido</span></div>
+      </div>
+
+      <div class="item-card">
+        <div class="ic-cat">Sunomono</div>
+        <div class="ic-nome">Sunomono de Salmão</div>
+        <p class="ic-desc">Pepino em conserva com salmão, molho agridoce e gergelim. Refrescante, aclamado nas avaliações como um dos melhores itens.</p>
+        <div class="ic-badges"><span class="ic-badge pop">⭐ elogiado</span></div>
+      </div>
+
+      <div class="item-card">
+        <div class="ic-cat">Ceviche</div>
+        <div class="ic-nome">Ceviche Oriental</div>
+        <p class="ic-desc">Peixe em leite de tigre com toque oriental, coentro e pimenta. Muito bem avaliado — um dos itens surpresa do cardápio.</p>
+        <div class="ic-badges"><span class="ic-badge pop">destacado</span></div>
+      </div>
+
+      <!-- VEGANOS -->
+      <div class="item-card">
+        <div class="ic-cat">Vegano · Sem Peixe</div>
+        <div class="ic-nome">Uramaki de Tofu · Pepino · Abacate</div>
+        <p class="ic-desc">Opções 100% plant-based com tofu, pepino, abacate e gergelim. O Udon é referência em rodízio vegano em Recife.</p>
+        <div class="ic-badges"><span class="ic-badge veg">🌿 vegano</span><span class="ic-badge pop">referência</span></div>
+      </div>
+
+      <div class="item-card">
+        <div class="ic-cat">Bolinho da Casa</div>
+        <div class="ic-nome">Bolinho Udon de Atum</div>
+        <p class="ic-desc">Criação exclusiva da casa: bolinho de atum bem recheado, finalizado e servido como petisco dentro do rodízio.</p>
+        <div class="ic-badges"><span class="ic-badge pop">exclusivo</span></div>
+      </div>
+
+    </div>
+
+    <!-- AVISO RODÍZIO -->
+    <div class="aviso-bloco">
+      <div class="aviso-titulo">ℹ️ Como funciona o Rodízio</div>
+      <div class="aviso-txt">
+        <strong>Pedidos por tablet</strong> — cada mesa tem um tablet com foto de todos os itens. Basta tocar e confirmar. Os itens frios chegam rápido; pratos quentes podem demorar mais nos horários de pico. <strong>Sem reservas</strong> — sistema por ordem de chegada, fila de espera nos fins de semana. Chegue cedo para garantir mesa. <strong>Sobremesas incluídas</strong> no preço do rodízio.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ FAIXA ══ -->
+<div class="faixa-escura">
+  <div class="faixa-num">
+    2014
+    <span>Servindo Recife com culinária oriental de qualidade desde 2014</span>
+  </div>
+</div>
+
+<!-- ══ 02 · À LA CARTE ══ -->
+<section id="alacarte">
+  <div class="wrap">
+    <div class="s-head">
+      <div>
+        <div class="s-num">02 / 06</div>
+        <h2 class="s-titulo">À La <em>Carte</em></h2>
+        <p class="s-sub">Peças e combinados avulsos para quem prefere escolher com calma</p>
+      </div>
+    </div>
+    <div class="alacarte-grid">
+
+      <div class="alc-card">
+        <div class="alc-cat">// Combinado</div>
+        <div class="alc-nome">Combinado do Chef</div>
+        <p class="alc-desc">Seleção de niguiris, uramakis e temakis escolhidos pelo chef. O pedido certo para quem quer descobrir o Udon na primeira visita.</p>
+        <div class="alc-rodape">
+          <div class="alc-preco">R$68</div>
+          <div class="alc-serve">20 peças · serve 1</div>
+        </div>
+      </div>
+
+      <div class="alc-card">
+        <div class="alc-cat">// Combinado</div>
+        <div class="alc-nome">Combinado Sushi Salmão</div>
+        <p class="alc-desc">Niguiris, uramakis e hossomakins com salmão fresco como protagonista. Para os amantes do peixe.</p>
+        <div class="alc-rodape">
+          <div class="alc-preco">R$58</div>
+          <div class="alc-serve">16 peças · serve 1</div>
+        </div>
+      </div>
+
+      <div class="alc-card">
+        <div class="alc-cat">// Sashimi</div>
+        <div class="alc-nome">Lâminas de Sashimi</div>
+        <p class="alc-desc">Fatias de salmão e atum fresco, temperados com shoyu e wasabi. Salmão fresco, peixe de qualidade — destaque das avaliações.</p>
+        <div class="alc-rodape">
+          <div class="alc-preco">R$52</div>
+          <div class="alc-serve">10 peças</div>
+        </div>
+      </div>
+
+      <div class="alc-card">
+        <div class="alc-cat">// Temaki</div>
+        <div class="alc-nome">Temaki Avulso</div>
+        <p class="alc-desc">Cone de alga nori com recheio à escolha: salmão, atum, camarão ou vegano. Praticamente sem arroz — quase tudo recheio.</p>
+        <div class="alc-rodape">
+          <div class="alc-preco">A partir de R$22</div>
+          <div class="alc-serve">1 unidade</div>
+        </div>
+      </div>
+
+      <div class="alc-card">
+        <div class="alc-cat">// Niguiri</div>
+        <div class="alc-nome">Joi Maçaricado</div>
+        <p class="alc-desc">Niguiri maçaricado com molho especial da casa, gergelim e cebolinha. Finalização ao maçarico dá o toque defumado perfeito.</p>
+        <div class="alc-rodape">
+          <div class="alc-preco">R$28</div>
+          <div class="alc-serve">2 peças</div>
+        </div>
+      </div>
+
+      <div class="alc-card">
+        <div class="alc-cat">// Sunomono</div>
+        <div class="alc-nome">Sunomono de Salmão Atum e Camarão</div>
+        <p class="alc-desc">Pepino em conserva com três proteínas, molho agridoce oriental e gergelim. Item mais elogiado nas avaliações do Google.</p>
+        <div class="alc-rodape">
+          <div class="alc-preco">R$32</div>
+          <div class="alc-serve">Porção</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ 03 · PRATOS QUENTES ══ -->
+<section id="quentes" style="background:var(--carvao)">
+  <div class="wrap">
+    <div class="s-head" style="border-bottom-color:var(--cinza-brd)">
+      <div>
+        <div class="s-num">03 / 06</div>
+        <h2 class="s-titulo">Pratos <em>Quentes</em></h2>
+        <p class="s-sub">Japonês, chinês e fusion — servidos à la carte ou incluídos no rodízio</p>
+      </div>
+    </div>
+    <div class="alacarte-grid">
+
+      <div class="alc-card" style="background:var(--cinza-esc)">
+        <div class="alc-cat" style="color:var(--vermelho)">// Yakisoba</div>
+        <div class="alc-nome">Yakissoba Tradicional</div>
+        <p class="alc-desc">Macarrão oriental salteado com legumes, molho shoyu e sua proteína à escolha (frango, carne ou camarão). Muito elogiado.</p>
+        <div class="alc-rodape" style="border-top-color:var(--cinza-brd)">
+          <div class="alc-preco">A partir de R$42</div>
+          <div class="alc-serve">Porção individual</div>
+        </div>
+      </div>
+
+      <div class="alc-card" style="background:var(--cinza-esc)">
+        <div class="alc-cat" style="color:var(--vermelho)">// Mini</div>
+        <div class="alc-nome">Mini Yakissoba</div>
+        <p class="alc-desc">Versão menor do yakisoba, perfeita para acompanhar o rodízio ou comer como entrada. Destaque nas avaliações do Restaurant Guru.</p>
+        <div class="alc-rodape" style="border-top-color:var(--cinza-brd)">
+          <div class="alc-preco">R$28</div>
+          <div class="alc-serve">Meia porção</div>
+        </div>
+      </div>
+
+      <div class="alc-card" style="background:var(--cinza-esc)">
+        <div class="alc-cat" style="color:var(--vermelho)">// Missoshiro</div>
+        <div class="alc-nome">Missoshiro</div>
+        <p class="alc-desc">Sopa de missô com tofu, cebolinha e alga wakame. Leve, reconfortante e muito elogiada — o melhor começo de refeição.</p>
+        <div class="alc-rodape" style="border-top-color:var(--cinza-brd)">
+          <div class="alc-preco">R$18</div>
+          <div class="alc-serve">Tigela</div>
+        </div>
+      </div>
+
+      <div class="alc-card" style="background:var(--cinza-esc)">
+        <div class="alc-cat" style="color:var(--vermelho)">// Petisco</div>
+        <div class="alc-nome">Guioza</div>
+        <p class="alc-desc">Pasteis japoneses recheados, grelhados e cozidos no vapor. Crocantes na base, macios no topo. Atenção: porções pequenas — peça a mais.</p>
+        <div class="alc-rodape" style="border-top-color:var(--cinza-brd)">
+          <div class="alc-preco">R$26</div>
+          <div class="alc-serve">6 unidades</div>
+        </div>
+      </div>
+
+      <div class="alc-card" style="background:var(--cinza-esc)">
+        <div class="alc-cat" style="color:var(--vermelho)">// Teriyaki</div>
+        <div class="alc-nome">Frango Teriyaki</div>
+        <p class="alc-desc">Frango grelhado com molho teriyaki adocicado, arroz japonês e legumes. Um clássico da cozinha japonesa bem executado.</p>
+        <div class="alc-rodape" style="border-top-color:var(--cinza-brd)">
+          <div class="alc-preco">R$48</div>
+          <div class="alc-serve">Prato individual</div>
+        </div>
+      </div>
+
+      <div class="alc-card" style="background:var(--cinza-esc)">
+        <div class="alc-cat" style="color:var(--vermelho)">// Tonkatsu</div>
+        <div class="alc-nome">Tonkatsu</div>
+        <p class="alc-desc">Costeleta de porco empanada e frita, fatiada, com molho tonkatsu e arroz japonês. Elogiado pelos clientes como prato excepcional.</p>
+        <div class="alc-rodape" style="border-top-color:var(--cinza-brd)">
+          <div class="alc-preco">R$52</div>
+          <div class="alc-serve">Prato individual</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ 04 · SOBREMESAS ══ -->
+<section id="sobremesas">
+  <div class="wrap">
+    <div class="s-head">
+      <div>
+        <div class="s-num">04 / 06</div>
+        <h2 class="s-titulo">Sobre<em>mesas</em></h2>
+        <p class="s-sub">Incluídas no rodízio · Também disponíveis à la carte</p>
+      </div>
+    </div>
+    <div class="grid-itens">
+      <div class="item-card destaque">
+        <div class="ic-cat">// Inclusa no Rodízio</div>
+        <div class="ic-nome">Sushis Doces</div>
+        <p class="ic-desc">Peças de sushi com recheio doce — chocolate, morango, leite condensado. Um dos itens mais elogiados do rodízio. Peça logo pois acaba cedo!</p>
+        <div class="ic-badges"><span class="ic-badge pop">⭐ sensacional</span></div>
+      </div>
+      <div class="item-card">
+        <div class="ic-cat">// Sobremesa</div>
+        <div class="ic-nome">Temaki Doce</div>
+        <p class="ic-desc">Cone de alga com recheio de nutella, frutas e leite condensado. Surpresa gostosa no final do rodízio.</p>
+        <div class="ic-badges"><span class="ic-badge pop">elogiado</span></div>
+      </div>
+      <div class="item-card">
+        <div class="ic-cat">// À La Carte</div>
+        <div class="ic-nome">Tempurá de Banana</div>
+        <p class="ic-desc">Banana empanada em massa de tempurá, frita e servida com mel e sorvete de creme. Fusion doce irresistível.</p>
+        <div class="ic-badges"><span class="ic-badge pop">favorito</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 05 · BEBIDAS ══ -->
+<section id="bebidas" style="background:var(--carvao)">
+  <div class="wrap">
+    <div class="s-head" style="border-bottom-color:var(--cinza-brd)">
+      <div>
+        <div class="s-num">05 / 06</div>
+        <h2 class="s-titulo"><em>Bebidas</em></h2>
+        <p class="s-sub">Cervejas importadas, drinks e não-alcoólicos</p>
+      </div>
+    </div>
+    <div class="beb-grid">
+      <div class="beb-card"><div><div class="beb-nome">Cerveja Japonesa Sapporo</div><div class="beb-det">Long Neck 355ml · importada</div></div><div class="beb-preco">R$22</div></div>
+      <div class="beb-card"><div><div class="beb-nome">Cerveja Japonesa Asahi</div><div class="beb-det">Long Neck 355ml · importada</div></div><div class="beb-preco">R$22</div></div>
+      <div class="beb-card"><div><div class="beb-nome">Cerveja Nacional Long Neck</div><div class="beb-det">355ml · Heineken, Brahma</div></div><div class="beb-preco">R$12</div></div>
+      <div class="beb-card"><div><div class="beb-nome">Sake</div><div class="beb-det">Quente ou frio · dose</div></div><div class="beb-preco">R$18</div></div>
+      <div class="beb-card"><div><div class="beb-nome">Chá Verde</div><div class="beb-det">Quente ou gelado · 300ml</div></div><div class="beb-preco">R$10</div></div>
+      <div class="beb-card"><div><div class="beb-nome">Refrigerante Lata</div><div class="beb-det">350ml · Coca-Cola, Guaraná</div></div><div class="beb-preco">R$7</div></div>
+      <div class="beb-card"><div><div class="beb-nome">Água Mineral</div><div class="beb-det">500ml · com ou sem gás</div></div><div class="beb-preco">R$5</div></div>
+      <div class="beb-card"><div><div class="beb-nome">Suco Natural</div><div class="beb-det">Maracujá, abacaxi · 400ml</div></div><div class="beb-preco">R$12</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 06 · INFO ══ -->
+<section id="info">
+  <div class="wrap">
+    <div class="s-head">
+      <div>
+        <div class="s-num">06 / 06</div>
+        <h2 class="s-titulo">Horários & <em>Como Chegar</em></h2>
+        <p class="s-sub">Zona Norte · Casa Amarela · Recife, PE</p>
+      </div>
+    </div>
+    <div class="info-grid">
+
+      <div class="info-bloco">
+        <div class="info-icone">📍</div>
+        <div class="info-titulo">// Localização</div>
+        <div class="info-txt">
+          <strong>Rua Raimundo Freixeira, 175</strong><br>
+          Casa Amarela · Zona Norte<br>
+          Recife – PE · CEP 52070-020<br><br>
+          Estacionamento limitado na rua. Nos fins de semana, chegar cedo é essencial.
+        </div>
+      </div>
+
+      <div class="info-bloco">
+        <div class="info-icone">🕐</div>
+        <div class="info-titulo">// Horários</div>
+        <div class="info-txt">
+          <strong>Terça a Domingo</strong><br>
+          18h30 às 23h00<br><br>
+          <strong>Segunda:</strong> Fechado<br><br>
+          Fins de semana geram fila de espera — chegue até 18h30 para garantir mesa sem espera longa.
+        </div>
+      </div>
+
+      <div class="info-bloco">
+        <div class="info-icone">📞</div>
+        <div class="info-titulo">// Contato</div>
+        <div class="info-txt">
+          <strong>Telefone:</strong> (81) 3049-3449<br>
+          <strong>WhatsApp:</strong> (81) 98842-8500<br><br>
+          <strong>Sem reservas</strong> — sistema por ordem de chegada. Para grupos grandes, entre em contato com antecedência.
+        </div>
+      </div>
+
+      <div class="info-bloco">
+        <div class="info-icone">📱</div>
+        <div class="info-titulo">// Redes Sociais</div>
+        <div class="info-txt">
+          Instagram: <strong>@udoncozinhaoriental</strong><br>
+          48.000 seguidores · 476 posts<br><br>
+          Bio: "Desde 2014 · Rodízio de sushi e à la carte 🍣🍱"<br><br>
+          Facebook: <strong>UdonCozinhaOriental</strong><br>
+          Site: <strong>udon.com.br</strong>
+        </div>
+      </div>
+
+      <div class="info-bloco">
+        <div class="info-icone">💳</div>
+        <div class="info-titulo">// Pagamentos</div>
+        <div class="info-txt">
+          <strong>Cartão Débito e Crédito</strong><br>
+          <strong>Pix</strong><br>
+          <strong>Dinheiro</strong><br><br>
+          Ambiente com ar-condicionado e opção de área externa. Familiar, tranquilo para crianças.
+        </div>
+      </div>
+
+      <div class="info-bloco">
+        <div class="info-icone">🌿</div>
+        <div class="info-titulo">// Veganos & Crianças</div>
+        <div class="info-txt">
+          <strong>Opções veganas</strong> disponíveis no rodízio e à la carte. Único restaurante com rodízio vegano de sushi na região.<br><br>
+          <strong>Crianças (até 10 anos):</strong> R$60 no rodízio.<br>
+          Ambiente tranquilo e familiar.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-logo-jp">うどん</div>
+  <div class="footer-logo-br">UDON</div>
+  <div class="footer-sub">Cozinha Oriental · Japonesa & Chinesa · Casa Amarela · Recife, PE · Desde 2014</div>
+  <div class="footer-links">
+    <a href="https://www.instagram.com/udoncozinhaoriental/" class="footer-link" target="_blank">Instagram</a>
+    <a href="https://udonzn.goomer.app/" class="footer-link" target="_blank">Delivery Online</a>
+    <a href="https://udon.com.br" class="footer-link" target="_blank">Site Oficial</a>
+    <a href="https://maps.app.goo.gl/wpr7FHt1yLFZtHqk7" class="footer-link" target="_blank">Google Maps</a>
+  </div>
+  <div class="footer-copy">© 2025 Udon Cozinha Oriental · Preços aproximados e sujeitos a alteração · Não fazemos reservas</div>
+</footer>
+
+<!-- WHATSAPP -->
+<a href="https://wa.me/5581988428500?text=Oi!%20Vi%20o%20card%C3%A1pio%20do%20Udon%20e%20tenho%20uma%20d%C3%BAvida%20%F0%9F%8D%A3" class="wpp" target="_blank" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script>
+  const sections = document.querySelectorAll('section[id]');
+  const links = document.querySelectorAll('.nav-link');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        links.forEach(l => l.classList.remove('ativo'));
+        const a = document.querySelector(`.nav-link[href="#${e.target.id}"]`);
+        if (a) a.classList.add('ativo');
+      }
+    });
+  }, { threshold: 0.3 });
+  sections.forEach(s => obs.observe(s));
+</script>
+
+</body>
+</html>
