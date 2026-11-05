@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title> Asinhas da Branquinha — Cardápio</title>
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --amarelo:   #F5C518;
+      --laranja:   #E8820C;
+      --vermelho:  #C43B1A;
+      --cafe:      #2B1A0E;
+      --castanho:  #3E2410;
+      --mel:       #8B5E2E;
+      --creme:     #FFF8EC;
+      --bege:      #F2E6CC;
+      --texto:     #2B1A0E;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: var(--creme);
+      color: var(--texto);
+      overflow-x: hidden;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      background: var(--cafe);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      padding: 2rem 1.5rem;
+    }
+
+    /* textura de fundo sutil */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 90% 60% at 50% 110%, rgba(245,197,24,0.18) 0%, transparent 65%),
+        radial-gradient(ellipse 50% 50% at 20% 10%, rgba(232,130,12,0.12) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    /* frango gigante de fundo */
+    .hero-bg-icon {
+      position: absolute;
+      font-size: 28rem;
+      line-height: 1;
+      opacity: 0.04;
+      bottom: -5rem;
+      right: -4rem;
+      pointer-events: none;
+      user-select: none;
+      transform: rotate(-20deg);
+    }
+
+    .hero-eyebrow {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--amarelo);
+      margin-bottom: 1.2rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-nome {
+      font-family: 'Abril Fatface', serif;
+      font-size: clamp(3.5rem, 13vw, 9rem);
+      line-height: 0.85;
+      color: var(--amarelo);
+      position: relative;
+      z-index: 2;
+      text-shadow: 4px 4px 0 rgba(0,0,0,0.4);
+    }
+
+    .hero-nome span {
+      display: block;
+      font-size: clamp(2rem, 8vw, 5.5rem);
+      color: #fff;
+      letter-spacing: 0.02em;
+    }
+
+    .hero-desc {
+      margin-top: 1.8rem;
+      font-size: 1rem;
+      font-weight: 300;
+      color: rgba(255,248,236,0.65);
+      letter-spacing: 0.04em;
+      max-width: 420px;
+      line-height: 1.7;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-stars {
+      margin-top: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.3rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-stars span {
+      font-size: 1.1rem;
+    }
+
+    .hero-rating {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--amarelo);
+      margin-left: 0.4rem;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 2.5rem;
+      background: var(--amarelo);
+      color: var(--cafe);
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 1rem 2.2rem;
+      text-decoration: none;
+      position: relative;
+      z-index: 2;
+      transition: background 0.2s, transform 0.15s;
+      /* estilo botão timbrado */
+      clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+    }
+    .hero-cta:hover {
+      background: var(--laranja);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      color: rgba(255,248,236,0.3);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      z-index: 2;
+    }
+    .scroll-line {
+      width: 1px;
+      height: 36px;
+      background: linear-gradient(to bottom, rgba(245,197,24,0.5), transparent);
+      animation: blink 1.8s ease-in-out infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+    /* ─── FAIXA TICKER ─── */
+    .ticker {
+      background: var(--amarelo);
+      padding: 0.7rem 0;
+      overflow: hidden;
+    }
+    .ticker-inner {
+      display: flex;
+      gap: 0;
+      animation: rola 22s linear infinite;
+      white-space: nowrap;
+    }
+    @keyframes rola { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+    .ticker-item {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--cafe);
+      padding: 0 2.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .ticker-item::after { content: '🍗'; font-size: 0.9rem; }
+
+    /* ─── NAV ─── */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--castanho);
+      border-bottom: 3px solid var(--amarelo);
+    }
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .nav-inner::-webkit-scrollbar { display: none; }
+    .nav-brand {
+      font-family: 'Abril Fatface', serif;
+      font-size: 1.2rem;
+      color: var(--amarelo);
+      white-space: nowrap;
+      padding: 0.9rem 0;
+      margin-right: auto;
+    }
+    .nav-link {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,248,236,0.5);
+      text-decoration: none;
+      padding: 0.9rem 0.6rem;
+      white-space: nowrap;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -3px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .nav-link:hover, .nav-link.ativo {
+      color: var(--amarelo);
+      border-bottom-color: var(--amarelo);
+    }
+
+    /* ─── LAYOUT SEÇÕES ─── */
+    .secao {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 5rem 1.5rem;
+    }
+
+    .secao-header {
+      display: flex;
+      align-items: flex-end;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .secao-letra {
+      font-family: 'Abril Fatface', serif;
+      font-size: 7rem;
+      line-height: 0.75;
+      color: var(--bege);
+      user-select: none;
+    }
+
+    .secao-titulo {
+      font-family: 'Abril Fatface', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      color: var(--cafe);
+      line-height: 1;
+    }
+
+    .secao-titulo em {
+      color: var(--laranja);
+      font-style: italic;
+    }
+
+    .secao-sub {
+      font-size: 0.85rem;
+      color: var(--mel);
+      font-weight: 400;
+      margin-top: 0.35rem;
+      font-style: italic;
+    }
+
+    /* ─── DIVISOR ─── */
+    .divisor-linha {
+      border: none;
+      border-top: 2px solid var(--bege);
+      margin-bottom: 2.5rem;
+    }
+
+    /* ─── HERO PRODUTO (asinha em destaque) ─── */
+    .hero-produto {
+      background: var(--cafe);
+      padding: 3rem 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-produto::before {
+      content: '🍗';
+      position: absolute;
+      font-size: 15rem;
+      opacity: 0.06;
+      top: -2rem;
+      left: -2rem;
+      transform: rotate(-25deg);
+    }
+    .hp-tag {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--amarelo);
+      border: 1px solid var(--amarelo);
+      padding: 0.25rem 0.8rem;
+      margin-bottom: 1rem;
+    }
+    .hp-nome {
+      font-family: 'Abril Fatface', serif;
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      color: #fff;
+      line-height: 1;
+    }
+    .hp-ing {
+      margin-top: 0.8rem;
+      font-size: 0.9rem;
+      color: rgba(255,248,236,0.6);
+      max-width: 480px;
+      line-height: 1.7;
+    }
+    .hp-preco {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--amarelo);
+      margin-top: 1.2rem;
+      letter-spacing: 0.02em;
+    }
+    .hp-serve {
+      font-size: 0.8rem;
+      color: rgba(255,248,236,0.4);
+      margin-top: 0.2rem;
+    }
+
+    /* ─── GRID PETISCOS ─── */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 1px;
+      background: var(--bege);
+    }
+
+    .card {
+      background: #fff;
+      padding: 1.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      transition: background 0.2s;
+      position: relative;
+    }
+    .card:hover { background: var(--creme); }
+
+    .card-tag {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--laranja);
+    }
+
+    .card-nome {
+      font-family: 'Abril Fatface', serif;
+      font-size: 1.25rem;
+      color: var(--cafe);
+      line-height: 1.1;
+    }
+
+    .card-ing {
+      font-size: 0.82rem;
+      color: var(--mel);
+      line-height: 1.6;
+      font-style: italic;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+      padding-top: 1rem;
+      border-top: 1px solid var(--bege);
+    }
+
+    .card-preco {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--vermelho);
+    }
+
+    .card-serve {
+      font-size: 0.72rem;
+      color: var(--mel);
+      text-align: right;
+    }
+
+    /* card destaque: borda esquerda amarela */
+    .card.quente {
+      border-left: 4px solid var(--amarelo);
+    }
+    .card.quente .card-preco { color: var(--laranja); }
+
+    /* ─── FUNDO ESCURO para seção carne ─── */
+    .bg-escuro {
+      background: var(--castanho);
+    }
+    .bg-escuro .card { background: var(--cafe); }
+    .bg-escuro .card:hover { background: #3a2412; }
+    .bg-escuro .card-nome { color: var(--creme); }
+    .bg-escuro .card-ing { color: rgba(255,248,236,0.5); }
+    .bg-escuro .card-footer { border-top-color: rgba(255,248,236,0.1); }
+    .bg-escuro .card-serve { color: rgba(255,248,236,0.35); }
+    .bg-escuro .grid-2 { background: rgba(255,248,236,0.08); }
+    .bg-escuro .secao-letra { color: rgba(255,248,236,0.06); }
+    .bg-escuro .secao-titulo { color: var(--creme); }
+    .bg-escuro .divisor-linha { border-top-color: rgba(255,248,236,0.1); }
+
+    /* ─── LISTA BEBIDAS ─── */
+    .lista-bebidas {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1px;
+      background: var(--bege);
+    }
+    .beb {
+      background: #fff;
+      padding: 1.2rem 1.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      transition: background 0.2s;
+    }
+    .beb:hover { background: var(--creme); }
+    .beb-nome {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--cafe);
+    }
+    .beb-det {
+      font-size: 0.75rem;
+      color: var(--mel);
+      margin-top: 0.15rem;
+      font-style: italic;
+    }
+    .beb-preco {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--vermelho);
+      white-space: nowrap;
+    }
+
+    /* ─── COMBOS ─── */
+    .grid-combos {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+    .combo {
+      border: 2px solid var(--amarelo);
+      padding: 2rem;
+      position: relative;
+      background: var(--cafe);
+    }
+    .combo-badge {
+      position: absolute;
+      top: -1px;
+      left: 1.5rem;
+      background: var(--amarelo);
+      color: var(--cafe);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.8rem;
+    }
+    .combo-nome {
+      font-family: 'Abril Fatface', serif;
+      font-size: 1.4rem;
+      color: #fff;
+      margin-top: 0.5rem;
+    }
+    .combo-inc {
+      margin-top: 0.8rem;
+      font-size: 0.85rem;
+      color: rgba(255,248,236,0.55);
+      line-height: 1.9;
+    }
+    .combo-inc b { color: var(--amarelo); }
+    .combo-rodape {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .combo-preco {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--amarelo);
+    }
+    .combo-ec {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #fff;
+      background: var(--vermelho);
+      padding: 0.25rem 0.7rem;
+      letter-spacing: 0.05em;
+    }
+
+    /* ─── INFO ─── */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+    .info-card {
+      background: var(--cafe);
+      padding: 2rem;
+      border-bottom: 3px solid var(--amarelo);
+    }
+    .info-icon { font-size: 1.8rem; margin-bottom: 0.7rem; }
+    .info-titulo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--amarelo);
+      margin-bottom: 0.4rem;
+    }
+    .info-texto {
+      font-size: 0.85rem;
+      color: rgba(255,248,236,0.55);
+      line-height: 1.7;
+    }
+    .info-texto strong { color: rgba(255,248,236,0.85); }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--cafe);
+      border-top: 4px solid var(--amarelo);
+      padding: 3.5rem 1.5rem 2.5rem;
+      text-align: center;
+    }
+    .footer-logo {
+      font-family: 'Abril Fatface', serif;
+      font-size: 3.5rem;
+      color: var(--amarelo);
+      line-height: 1;
+    }
+    .footer-sub {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,248,236,0.35);
+      margin-top: 0.4rem;
+    }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 1.8rem;
+      flex-wrap: wrap;
+    }
+    .footer-link {
+      font-size: 0.8rem;
+      color: rgba(255,248,236,0.4);
+      text-decoration: none;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .footer-link:hover { color: var(--amarelo); }
+    .footer-copy {
+      margin-top: 2rem;
+      font-size: 0.72rem;
+      color: rgba(255,248,236,0.15);
+    }
+
+    /* ─── WHATSAPP ─── */
+    .wpp {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 200;
+      width: 58px;
+      height: 58px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.45);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .wpp:hover { transform: scale(1.1); box-shadow: 0 6px 30px rgba(37,211,102,0.7); }
+    .wpp svg { width: 28px; height: 28px; fill: #fff; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 600px) {
+      .grid-2, .lista-bebidas { grid-template-columns: 1fr; }
+      .grid-combos { grid-template-columns: 1fr; }
+      .info-grid { grid-template-columns: 1fr; }
+      .secao-letra { font-size: 4rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-bg-icon">🍗</div>
+  <p class="hero-eyebrow">📍 Dois Unidos · Recife, PE — Desde 2018</p>
+  <h1 class="hero-nome">
+    Asinha
+    <span>da B</span>
+  </h1>
+  <p class="hero-desc">O melhor frango frito do bairro, carne de sol irresistível e petiscos que fazem a galera ficar até tarde.</p>
+  <div class="hero-stars">
+    <span>⭐⭐⭐⭐⭐</span>
+    <div class="hero-rating">4.5 no Google · Mais de 700 avaliações</div>
+  </div>
+  <a href="#carro-chefe" class="hero-cta">Ver Cardápio Completo ↓</a>
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    <span>rolar</span>
+  </div>
+</section>
+
+<!-- ══ TICKER ══ -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item">Asinha Crokante</span>
+    <span class="ticker-item">Carne de Sol</span>
+    <span class="ticker-item">Camarão Especial</span>
+    <span class="ticker-item">Bar Completo</span>
+    <span class="ticker-item">Ambiente Familiar</span>
+    <span class="ticker-item">Música ao Vivo · Sex & Sáb</span>
+    <span class="ticker-item">Happy Hour Todo Dia</span>
+    <span class="ticker-item">Dois Unidos · Recife</span>
+    <!-- duplicado para loop contínuo -->
+    <span class="ticker-item">Asinha Crokante</span>
+    <span class="ticker-item">Carne de Sol</span>
+    <span class="ticker-item">Camarão Especial</span>
+    <span class="ticker-item">Bar Completo</span>
+    <span class="ticker-item">Ambiente Familiar</span>
+    <span class="ticker-item">Música ao Vivo · Sex & Sáb</span>
+    <span class="ticker-item">Happy Hour Todo Dia</span>
+    <span class="ticker-item">Dois Unidos · Recife</span>
+  </div>
+</div>
+
+<!-- ══ NAV STICKY ══ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-brand">Asinha da Branquinha</div>
+    <a href="#carro-chefe" class="nav-link">Carro-Chefe</a>
+    <a href="#petiscos" class="nav-link">Petiscos</a>
+    <a href="#carnes" class="nav-link">Carnes</a>
+    <a href="#frutos" class="nav-link">Frutos do Mar</a>
+    <a href="#combos" class="nav-link">Combos</a>
+    <a href="#bebidas" class="nav-link">Bebidas</a>
+    <a href="#info" class="nav-link">Pedidos</a>
+  </div>
+</nav>
+
+<!-- ══ 01 · CARRO-CHEFE ══ -->
+<section id="carro-chefe">
+  <div class="secao">
+    <div class="secao-header">
+      <div class="secao-letra">01</div>
+      <div>
+        <h2 class="secao-titulo">A Estrela <em>da Casa</em></h2>
+        <p class="secao-sub">O prato que colocou o Tonho no mapa</p>
+      </div>
+    </div>
+    <hr class="divisor-linha" />
+
+    <!-- CARD HERÓI -->
+    <div class="hero-produto">
+      <div class="hp-tag">⭐ Prato Mais Pedido · Icônico</div>
+      <div class="hp-nome">Asinha da Branquinha<br>com Fritas</div>
+      <div class="hp-ing">Asinha de frango temperada em segredo da casa, frita no ponto certo até ficar dourada e crocante por fora, suculenta por dentro. Acompanha fritas crocantes e molho especial.</div>
+      <div class="hp-preco">A partir de R$39</div>
+      <div class="hp-serve">Porção individual · Também disponível família</div>
+    </div>
+
+    <!-- VARIAÇÕES -->
+    <div class="grid-2">
+      <div class="card quente">
+        <span class="card-tag">🔥 Versão Especial</span>
+        <div class="card-nome">Asinha da Branquinha · Família</div>
+        <p class="card-ing">A mesma asinha crokante que você ama, em porção generosa para dividir com quem importa. Vem com fritas e dois molhos à escolha.</p>
+        <div class="card-footer">
+          <div class="card-preco">R$72</div>
+          <div class="card-serve">Serve até 3 pessoas</div>
+        </div>
+      </div>
+
+      <div class="card quente">
+        <span class="card-tag">🍗 Clássico</span>
+        <div class="card-nome">Frango Frito Inteiro</div>
+        <p class="card-ing">Frango inteiro temperado, frito lentamente até atingir a crocância perfeita. Acompanha macaxeira frita e vinagrete da casa.</p>
+        <div class="card-footer">
+          <div class="card-preco">R$89</div>
+          <div class="card-serve">Serve até 4 pessoas</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag">Meio Frango</span>
+        <div class="card-nome">Frango Frito · Meia Porção</div>
+        <p class="card-ing">Meio frango na fritura perfeita, com macaxeira frita crocante e molho especial do Tonho.</p>
+        <div class="card-footer">
+          <div class="card-preco">R$54</div>
+          <div class="card-serve">Serve até 2 pessoas</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag">Frango Crokante</span>
+        <div class="card-nome">Frango Crokante no Palito</div>
+        <p class="card-ing">Filezinhos empanados crocantes no palito, fáceis de beliscar e impossíveis de comer só um. Acompanha molho da escolha.</p>
+        <div class="card-footer">
+          <div class="card-preco">R$34</div>
+          <div class="card-serve">Porção com 8 unidades</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 02 · PETISCOS ══ -->
+<section id="petiscos" style="background: var(--creme);">
+  <div class="secao">
+    <div class="secao-header">
+      <div class="secao-letra">02</div>
+      <div>
+        <h2 class="secao-titulo"><em>Petiscos</em> & Entradas</h2>
+        <p class="secao-sub">Para abrir o apetite enquanto a galera chega</p>
+      </div>
+    </div>
+    <hr class="divisor-linha" />
+    <div class="grid-2">
+
+      <div class="card">
+        <span class="card-tag">Favorito</span>
+        <div class="card-nome">Macaxeira Frita</div>
+        <p class="card-ing">Macaxeira selecionada, cozida e frita até ficar douradinha. Simples, clássico, impossível resistir.</p>
+        <div class="card-footer">
+          <div class="card-preco">R$22</div>
+          <div class="card-serve">Porção generosa</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag">Petisco</span>
+        <div class="card-nome">Batata Frita Crocante</div>
+        <p class="card-ing">Palitos de batata fritos no ponto, sequinhos e saborosos. Ideal pra acompanhar a cerveja gelada.</p>
+        <div class="card-footer">
+          <div class="card-preco">R$20</div>
+          <div class="card-serve">Porção individual</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag">Petisco</span>
+        <div class="card-nome">Croquete de Carne</div>
+        <p class="card-ing">Croquetes fritos recheados com carne temperada, crocantes por fora e cremosos por dentro.</p>
+        <div class="card-footer">
+          <div class="card-preco">R$28</div>
+          <div class="card-serve">8 unidades</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag">Petisco</span>
+        <div class="card-nome">Queijo Coalho Grelhado</div>
+        <p class="card-ing">Queijo coalho nordestino grelhado na chapa, com orégano e mel de engenho. Derreteu o coração de quem prova.</p>
+        <div class="card-footer">
+          <div class="card-preco">R$24</div>
+          <div class="card-serve">2 espetos</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag"> Destaque</span>
+        <div class="card-nome">Isca de Peixe Frito</div>
+        <p class="card-ing">Iscas de peixe fresco, temperadas e fritas no ponto. Crocantes por fora, macias por dentro. Acompanha molho tártaro.</p>
+        <div class="card-footer">
+          <div class="card-preco">R$38</div>
+          <div class="card-serve">Porção generosa</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag">Petisco</span>
+        <div class="card-nome">Moela Acebolada</div>
+        <p class="card-ing">Moela de frango refogada no tempero nordestino, com cebola, tomate e cheiro-verde. Acompanha pão.</p>
+        <div class="card-footer">
+          <div class="card-preco">R$28</div>
+          <div class="card-serve">Porção com 2</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ 03 · CARNES ══ -->
+<div class="bg-escuro">
+<section id="carnes">
+  <div class="secao">
+    <div class="secao-header">
+      <div class="secao-letra">03</div>
+      <div>
+        <h2 class="secao-titulo">Carnes <em>do Sertão</em></h2>
+        <p class="secao-sub" style="color:rgba(255,248,236,0.4)">O Nordeste no seu prato — feito com amor e tempero de verdade</p>
+      </div>
+    </div>
+    <hr class="divisor-linha" />
+    <div class="grid-2">
+
+      <div class="card quente">
+        <span class="card-tag">⭐ Mais Pedida</span>
+        <div class="card-nome">½ Carne de Sol</div>
+        <p class="card-ing">Carne de sol macia e saborosa, grelhada no ponto. Acompanha arroz, feijão, macaxeira frita e manteiga da terra.</p>
+        <div class="card-footer">
+          <div class="card-preco">R$65</div>
+          <div class="card-serve">Serve 1–2 pessoas</div>
+        </div>
+      </div>
+
+      <div class="card quente">
+        <span class="card-tag">🔥 Especial</span>
+        <div class="card-nome">Carne de Sol Inteira</div>
+        <p class="card-ing">A carne de sol completa, dourada na grelha, com todos os acompanhamentos tradicionais. O prato da festa.</p>
+        <div class="card-footer">
+          <div class="card-preco">R$115</div>
+          <div class="card-serve">Serve até 3 pessoas</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag">Nordestino</span>
+        <div class="card-nome">Costela de Boi Assada</div>
+        <p class="card-ing">Costela assada lentamente, desfiando na faca, com acompanhamentos regionais e farofa especial da casa.</p>
+        <div class="card-footer">
+          <div class="card-preco">R$89</div>
+          <div class="card-serve">Serve até 3 pessoas</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag">Nordestino</span>
+        <div class="card-nome">Baião de Dois com Carne</div>
+        <p class="card-ing">O clássico nordestino: arroz e feijão verde com queijo coalho derretido, carne de sol desfiada e manteiga da terra.</p>
+        <div class="card-footer">
+          <div class="card-preco">R$52</div>
+          <div class="card-serve">Serve 1 pessoa</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- ══ 04 · FRUTOS DO MAR ══ -->
+<section id="frutos">
+  <div class="secao">
+    <div class="secao-header">
+      <div class="secao-letra">04</div>
+      <div>
+        <h2 class="secao-titulo">Frutos <em>do Mar</em></h2>
+        <p class="secao-sub">Do oceano pernambucano direto pra sua mesa</p>
+      </div>
+    </div>
+    <hr class="divisor-linha" />
+    <div class="grid-2">
+
+      <div class="card quente">
+        <span class="card-tag">🦐 Top Vendas</span>
+        <div class="card-nome">Carne de Sol + Camarão + Fritas</div>
+        <p class="card-ing">A combinação mais pedida: carne de sol grelhada com camarão temperado, fritas crocantes e vinagrete da casa. Irresistível.</p>
+        <div class="card-footer">
+          <div class="card-preco">R$89</div>
+          <div class="card-serve">Serve 1–2 pessoas</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag">Frutos do Mar</span>
+        <div class="card-nome">Porção de Camarão Frito</div>
+        <p class="card-ing">Camarão empanado e frito no ponto perfeito, crocante, com alho e limão. Acompanha molho da casa.</p>
+        <div class="card-footer">
+          <div class="card-preco">R$59</div>
+          <div class="card-serve">Porção média</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag">Frutos do Mar</span>
+        <div class="card-nome">Camarão ao Alho e Óleo</div>
+        <p class="card-ing">Camarão refogado no azeite com alho dourado, pimenta biquinho e salsinha. Acompanha arroz e macaxeira.</p>
+        <div class="card-footer">
+          <div class="card-preco">R$65</div>
+          <div class="card-serve">Serve 1–2 pessoas</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag">Especial do Mar</span>
+        <div class="card-nome">Peixe Frito com Acompanhamentos</div>
+        <p class="card-ing">Posta de peixe fresco frita no ponto, acompanha arroz, feijão verde, macaxeira frita e molho vinagrete.</p>
+        <div class="card-footer">
+          <div class="card-preco">R$62</div>
+          <div class="card-serve">Serve 1 pessoa</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ 05 · COMBOS ══ -->
+<div class="bg-escuro">
+<section id="combos">
+  <div class="secao">
+    <div class="secao-header">
+      <div class="secao-letra">05</div>
+      <div>
+        <h2 class="secao-titulo"><em>Combos</em> da Galera</h2>
+        <p class="secao-sub" style="color:rgba(255,248,236,0.4)">Mais comida, mais bebida, mais economia — pra reunir todo mundo</p>
+      </div>
+    </div>
+    <hr class="divisor-linha" />
+    <div class="grid-combos">
+
+      <div class="combo">
+        <div class="combo-badge"> Combo Duplo</div>
+        <div class="combo-nome">O Encontro dos Dois</div>
+        <div class="combo-inc">
+          ✔ <b>2 Asinhas da Branquinha com Fritas</b><br>
+          ✔ <b>2 Cervejas Long Neck 355ml</b><br>
+          ✔ Molho especial da casa incluso
+        </div>
+        <div class="combo-rodape">
+          <div class="combo-preco">R$85</div>
+          <div class="combo-ec">Economize R$18</div>
+        </div>
+      </div>
+
+      <div class="combo">
+        <div class="combo-badge"> Combo Família</div>
+        <div class="combo-nome">Festa no Tonho</div>
+        <div class="combo-inc">
+          ✔ <b>Asinha do Tonho Família (3 pessoas)</b><br>
+          ✔ <b>½ Carne de Sol com acompanhamentos</b><br>
+          ✔ <b>1 Refrigerante 2L ou 4 Cervejas</b><br>
+          ✔ Macaxeira frita extra
+        </div>
+        <div class="combo-rodape">
+          <div class="combo-preco">R$149</div>
+          <div class="combo-ec">Economize R$28</div>
+        </div>
+      </div>
+
+      <div class="combo">
+        <div class="combo-badge">⚡ Happy Hour</div>
+        <div class="combo-nome">Arrastapé da Branquinha</div>
+        <div class="combo-inc">
+          ✔ <b>Isca de Peixe Frito</b><br>
+          ✔ <b>Macaxeira Frita</b><br>
+          ✔ <b>Queijo Coalho Grelhado</b><br>
+          ✔ <b>6 Cervejas Geladas 600ml</b>
+        </div>
+        <div class="combo-rodape">
+          <div class="combo-preco">R$139</div>
+          <div class="combo-ec">Economize R$35</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- ══ 06 · BEBIDAS ══ -->
+<section id="bebidas">
+  <div class="secao">
+    <div class="secao-header">
+      <div class="secao-letra">06</div>
+      <div>
+        <h2 class="secao-titulo"><em>Bebidas</em></h2>
+        <p class="secao-sub">Geladas e prontas pra acompanhar cada petisco</p>
+      </div>
+    </div>
+    <hr class="divisor-linha" />
+    <div class="lista-bebidas">
+      <div class="beb"><div><div class="beb-nome">Cerveja Long Neck</div><div class="beb-det">355ml · Skol, Brahma, Itaipava</div></div><div class="beb-preco">R$7</div></div>
+      <div class="beb"><div><div class="beb-nome">Cerveja Garrafa</div><div class="beb-det">600ml · Gelada na certa</div></div><div class="beb-preco">R$12</div></div>
+      <div class="beb"><div><div class="beb-nome">Caipirinha da Casa</div><div class="beb-det">Limão, morango ou maracujá</div></div><div class="beb-preco">R$18</div></div>
+      <div class="beb"><div><div class="beb-nome">Caipiroska</div><div class="beb-det">Vodka com frutas da estação</div></div><div class="beb-preco">R$20</div></div>
+      <div class="beb"><div><div class="beb-nome">Coca-Cola Lata</div><div class="beb-det">350ml</div></div><div class="beb-preco">R$6</div></div>
+      <div class="beb"><div><div class="beb-nome">Coca-Cola 2 Litros</div><div class="beb-det">Para a mesa inteira</div></div><div class="beb-preco">R$15</div></div>
+      <div class="beb"><div><div class="beb-nome">Suco Natural</div><div class="beb-det">Caju, maracujá, abacaxi · 500ml</div></div><div class="beb-preco">R$12</div></div>
+      <div class="beb"><div><div class="beb-nome">Água Mineral</div><div class="beb-det">500ml · com ou sem gás</div></div><div class="beb-preco">R$4</div></div>
+      <div class="beb"><div><div class="beb-nome">Whisky Dose</div><div class="beb-det">Nacionais e importados</div></div><div class="beb-preco">R$16</div></div>
+      <div class="beb"><div><div class="beb-nome">Vinho da Casa</div><div class="beb-det">Tinto ou rosé · Taça 200ml</div></div><div class="beb-preco">R$22</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 07 · INFO / PEDIDOS ══ -->
+<div class="bg-escuro">
+<section id="info">
+  <div class="secao">
+    <div class="secao-header">
+      <div class="secao-letra">07</div>
+      <div>
+        <h2 class="secao-titulo">Como <em>Chegar</em> & Pedir</h2>
+        <p class="secao-sub" style="color:rgba(255,248,236,0.4)">Tudo que você precisa saber antes de vir ou ligar</p>
+      </div>
+    </div>
+    <hr class="divisor-linha" />
+    <div class="info-grid">
+
+      <div class="info-card">
+        <div class="info-icon">📍</div>
+        <div class="info-titulo">Onde Fica</div>
+        <div class="info-texto"><strong>Av. Hildebrando de Vasconcelos, 815</strong><br>Dois Unidos, Recife – PE<br>CEP 52140-005<br><br>Fácil de encontrar, estacionamento na rua.</div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-icon">🕐</div>
+        <div class="info-titulo">Horários</div>
+        <div class="info-texto">
+          <strong>Seg a Qui:</strong> 18h – 01h<br>
+          <strong>Sexta:</strong> 18h – 02h<br>
+          <strong>Sábado:</strong> 11h – 03h<br>
+          <strong>Domingo:</strong> 11h – 23h<br><br>
+          Happy Hour: todos os dias das 18h às 20h
+        </div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-icon">🎵</div>
+        <div class="info-titulo">Música ao Vivo</div>
+        <div class="info-texto">Toda <strong>sexta e sábado</strong> tem música ao vivo! Forró, axé e muito MPB pernambucano.<br><br>Ambiente familiar, mesas ao ar livre e WiFi disponível.</div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-icon">💳</div>
+        <div class="info-titulo">Pagamentos</div>
+        <div class="info-texto">Aceitamos <strong>Dinheiro, Pix, Cartão de Débito e Crédito</strong>.<br><br>Reservas disponíveis para grupos acima de 8 pessoas — ligue ou mande mensagem.</div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-icon">📱</div>
+        <div class="info-titulo">Redes Sociais</div>
+        <div class="info-texto">Siga no Instagram: <strong>@asinhadotonhooficial_</strong><br><br>9.300+ seguidores — fique por dentro das promoções, eventos e novidades do cardápio.</div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-icon">🛵</div>
+        <div class="info-titulo">Delivery & Reservas</div>
+        <div class="info-texto">Consulte nosso delivery pelo WhatsApp ou acesse o InstaDelivery pelo Instagram.<br><br><strong>Reservas para grupos:</strong> entre em contato com antecedência para garantir sua mesa.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-logo">Asinha do Tonho</div>
+  <div class="footer-sub">O melhor frango de Dois Unidos · Recife, PE · Desde 2018</div>
+  <div class="footer-links">
+    <a href="https://www.instagram.com/asinhadotonhooficial_/" class="footer-link" target="_blank">Instagram</a>
+    <a href="https://instadelivery.com.br/asinhadotonho" class="footer-link" target="_blank">Delivery Online</a>
+    <a href="https://maps.app.goo.gl/2SGSYKg6frmvaZdG9" class="footer-link" target="_blank">Google Maps</a>
+  </div>
+  <div class="footer-copy">© 2025 Asinha do Tonho · Preços aproximados e sujeitos a alteração · Imagens ilustrativas</div>
+</footer>
+
+<!-- BOTÃO WHATSAPP -->
+<a href="https://wa.me/5581999999999?text=Oi!%20Vi%20o%20card%C3%A1pio%20e%20quero%20fazer%20um%20pedido%20%F0%9F%8D%97" class="wpp" target="_blank" aria-label="Pedido via WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
+
+<script>
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('ativo'));
+        const a = document.querySelector(`.nav-link[href="#${e.target.id}"]`);
+        if (a) a.classList.add('ativo');
+      }
+    });
+  }, { threshold: 0.35 });
+
+  sections.forEach(s => obs.observe(s));
+</script>
+
+</body>
+</html>
