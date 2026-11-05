@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Restaurante Secreto — Cardápio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="" />
+  <style>
+    /* ─── TOKENS ─────────────────────────────────────────────── */
+    :root {
+      --verde-folha:   #2D3B2E;   /* fundo escuro — floresta */
+      --verde-musgo:   #3E5240;   /* seções alternas */
+      --ouro-erva:     #C8A96E;   /* acento dourado caramelo */
+      --creme:         #F5EFE0;   /* texto principal claro */
+      --creme-suave:   #E8DFC8;   /* texto secundário */
+      --branco-off:    #FDF9F2;
+      --linha:         rgba(200,169,110,0.25);
+      --sombra:        0 4px 32px rgba(0,0,0,0.35);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--verde-folha);
+      color: var(--creme);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ─── HERO ───────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 3rem 2rem 4rem;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 30%, rgba(61,82,64,0.6) 0%, transparent 70%),
+        radial-gradient(ellipse 120% 80% at 50% 100%, rgba(29,38,30,0.9) 0%, transparent 60%);
+      z-index: 0;
+    }
+
+    /* botanical illustration in background */
+    .hero-botanical {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      opacity: 0.07;
+      pointer-events: none;
+    }
+
+    .hero-botanical svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--ouro-erva);
+      margin-bottom: 1.8rem;
+    }
+
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.2rem, 9vw, 6.5rem);
+      font-weight: 300;
+      line-height: 0.95;
+      color: var(--creme);
+      letter-spacing: -0.01em;
+    }
+
+    .hero h1 em {
+      display: block;
+      font-style: italic;
+      color: var(--ouro-erva);
+      font-size: 0.6em;
+    }
+
+    .hero-divider {
+      width: 1px;
+      height: 60px;
+      background: linear-gradient(to bottom, transparent, var(--ouro-erva), transparent);
+      margin: 2.2rem auto;
+    }
+
+    .hero-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      color: var(--creme-suave);
+      max-width: 38ch;
+      line-height: 1.6;
+    }
+
+    .hero-meta {
+      margin-top: 2.5rem;
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .hero-meta span {
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ouro-erva);
+      opacity: 0.85;
+    }
+
+    /* ─── NAV ────────────────────────────────────────────────── */
+    .nav-sticky {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(29, 38, 30, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--linha);
+    }
+
+    .nav-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .nav-inner::-webkit-scrollbar { display: none; }
+
+    .nav-inner a {
+      display: block;
+      padding: 1rem 1.4rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--creme-suave);
+      text-decoration: none;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .nav-inner a:hover {
+      color: var(--ouro-erva);
+      border-bottom-color: var(--ouro-erva);
+    }
+
+    /* ─── SECTION WRAPPER ────────────────────────────────────── */
+    .section {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 4rem 1.5rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 1.4rem;
+      margin-bottom: 3rem;
+    }
+
+    .section-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--ouro-erva);
+      white-space: nowrap;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 400;
+      color: var(--creme);
+      line-height: 1.1;
+    }
+
+    .section-line {
+      flex: 1;
+      height: 1px;
+      background: var(--linha);
+    }
+
+    /* ─── ALTERNATING BG ─────────────────────────────────────── */
+    .bg-alt {
+      background-color: var(--verde-musgo);
+    }
+
+    /* ─── CARD GRID ──────────────────────────────────────────── */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1.5px;
+    }
+
+    /* ─── PRATO CARD ─────────────────────────────────────────── */
+    .prato {
+      padding: 1.8rem 0;
+      border-bottom: 1px solid var(--linha);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 0.5rem 1.5rem;
+      align-items: start;
+    }
+
+    .prato:last-child { border-bottom: none; }
+
+    .prato-nome {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--creme);
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    .prato-desc {
+      font-size: 0.82rem;
+      line-height: 1.65;
+      color: var(--creme-suave);
+      opacity: 0.8;
+      grid-column: 1;
+      grid-row: 2;
+    }
+
+    .prato-badge {
+      display: inline-block;
+      font-size: 0.58rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--verde-folha);
+      background: var(--ouro-erva);
+      padding: 0.25em 0.7em;
+      border-radius: 2px;
+      margin-top: 0.6rem;
+      font-weight: 500;
+    }
+
+    .prato-preco {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: var(--ouro-erva);
+      grid-column: 2;
+      grid-row: 1;
+      white-space: nowrap;
+      padding-top: 0.15rem;
+    }
+
+    /* ─── DESTAQUE CARD (carro-chefe) ────────────────────────── */
+    .prato-destaque {
+      border: 1px solid rgba(200,169,110,0.4);
+      border-radius: 4px;
+      padding: 2rem;
+      margin-bottom: 1.5px;
+      background: rgba(200,169,110,0.06);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .prato-destaque::before {
+      content: '★ CARRO-CHEFE';
+      position: absolute;
+      top: 1rem;
+      right: 1.2rem;
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      color: var(--ouro-erva);
+    }
+
+    .prato-destaque .prato-nome {
+      font-size: 1.5rem;
+    }
+
+    /* ─── BEBIDAS ────────────────────────────────────────────── */
+    .bebida-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--linha);
+      gap: 1rem;
+    }
+
+    .bebida-row:last-child { border-bottom: none; }
+
+    .bebida-nome {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      color: var(--creme);
+    }
+
+    .bebida-desc {
+      font-size: 0.78rem;
+      color: var(--creme-suave);
+      opacity: 0.7;
+    }
+
+    .bebida-preco {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      color: var(--ouro-erva);
+      white-space: nowrap;
+    }
+
+    /* ─── NOTA SOBRE ERVAS ───────────────────────────────────── */
+    .nota-jardim {
+      margin-top: 3rem;
+      padding: 1.8rem 2rem;
+      border-left: 2px solid var(--ouro-erva);
+      background: rgba(200,169,110,0.06);
+    }
+
+    .nota-jardim p {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--creme-suave);
+    }
+
+    .nota-jardim strong {
+      color: var(--ouro-erva);
+      font-style: normal;
+    }
+
+    /* ─── SOBRE ──────────────────────────────────────────────── */
+    .sobre-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .sobre-texto p {
+      font-size: 0.9rem;
+      line-height: 1.8;
+      color: var(--creme-suave);
+      margin-bottom: 1rem;
+      opacity: 0.85;
+    }
+
+    .sobre-texto p strong {
+      color: var(--ouro-erva);
+      font-weight: 500;
+    }
+
+    .sobre-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .info-bloco {
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--linha);
+    }
+
+    .info-bloco:last-child { border-bottom: none; }
+
+    .info-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--ouro-erva);
+      margin-bottom: 0.4rem;
+    }
+
+    .info-valor {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      color: var(--creme);
+      line-height: 1.5;
+    }
+
+    /* ─── RODAPÉ ─────────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--linha);
+      text-align: center;
+      padding: 3rem 2rem;
+    }
+
+    footer .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      color: var(--ouro-erva);
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+
+    footer .footer-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.9rem;
+      color: var(--creme-suave);
+      opacity: 0.6;
+      margin-bottom: 2rem;
+    }
+
+    footer .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    footer a {
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--creme-suave);
+      text-decoration: none;
+      opacity: 0.55;
+      transition: opacity 0.2s;
+    }
+
+    footer a:hover { opacity: 1; color: var(--ouro-erva); }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────────── */
+    @media (max-width: 640px) {
+      .grid-2 { grid-template-columns: 1fr; }
+      .sobre-grid { grid-template-columns: 1fr; }
+      .nav-inner { gap: 0; }
+    }
+
+    /* ─── FADE-IN ─────────────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-content > * {
+      animation: fadeUp 0.8s ease both;
+    }
+
+    .hero-content > *:nth-child(1) { animation-delay: 0.1s; }
+    .hero-content > *:nth-child(2) { animation-delay: 0.25s; }
+    .hero-content > *:nth-child(3) { animation-delay: 0.38s; }
+    .hero-content > *:nth-child(4) { animation-delay: 0.48s; }
+    .hero-content > *:nth-child(5) { animation-delay: 0.55s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-content > * { animation: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ────────────────── HERO ────────────────── -->
+<section class="hero">
+  <div class="hero-botanical" aria-hidden="true">
+    <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <!-- Folhas decorativas botânicas -->
+      <g fill="none" stroke="#C8A96E" stroke-width="1.2">
+        <!-- ramo esquerdo -->
+        <path d="M 80 700 Q 120 580 200 520 Q 260 480 320 420"/>
+        <path d="M 200 520 Q 170 480 130 470"/>
+        <path d="M 200 520 Q 240 495 260 460"/>
+        <path d="M 260 480 Q 230 445 210 420"/>
+        <path d="M 260 480 Q 295 460 310 435"/>
+        <path d="M 320 420 Q 290 390 275 365"/>
+        <path d="M 320 420 Q 355 400 375 370"/>
+        <!-- folhas elípticas -->
+        <ellipse cx="145" cy="468" rx="25" ry="12" transform="rotate(-35 145 468)"/>
+        <ellipse cx="268" cy="455" rx="22" ry="10" transform="rotate(20 268 455)"/>
+        <ellipse cx="218" cy="418" rx="20" ry="9" transform="rotate(-40 218 418)"/>
+        <ellipse cx="315" cy="430" rx="23" ry="10" transform="rotate(15 315 430)"/>
+        <ellipse cx="280" cy="362" rx="21" ry="9" transform="rotate(-25 280 362)"/>
+        <ellipse cx="380" cy="366" rx="22" ry="9" transform="rotate(30 380 366)"/>
+        <!-- ramo direito -->
+        <path d="M 1120 720 Q 1080 600 1000 530 Q 940 485 880 425"/>
+        <path d="M 1000 530 Q 1030 490 1070 478"/>
+        <path d="M 1000 530 Q 960 502 940 468"/>
+        <path d="M 940 485 Q 970 452 990 428"/>
+        <path d="M 940 485 Q 905 462 885 436"/>
+        <path d="M 880 425 Q 910 392 925 365"/>
+        <path d="M 880 425 Q 845 405 825 375"/>
+        <ellipse cx="1055" cy="476" rx="25" ry="12" transform="rotate(35 1055 476)"/>
+        <ellipse cx="932" cy="466" rx="22" ry="10" transform="rotate(-20 932 466)"/>
+        <ellipse cx="982" cy="426" rx="20" ry="9" transform="rotate(40 982 426)"/>
+        <ellipse cx="885" cy="434" rx="23" ry="10" transform="rotate(-15 885 434)"/>
+        <ellipse cx="920" cy="362" rx="21" ry="9" transform="rotate(25 920 362)"/>
+        <ellipse cx="822" cy="372" rx="22" ry="9" transform="rotate(-30 822 372)"/>
+        <!-- ervas no topo -->
+        <path d="M 500 50 Q 510 120 505 180"/>
+        <path d="M 505 180 Q 490 155 480 140"/>
+        <path d="M 505 180 Q 520 155 530 140"/>
+        <path d="M 700 30 Q 710 100 705 165"/>
+        <path d="M 705 165 Q 690 138 680 122"/>
+        <path d="M 705 165 Q 720 138 732 122"/>
+        <ellipse cx="481" cy="138" rx="15" ry="7" transform="rotate(-30 481 138)"/>
+        <ellipse cx="530" cy="138" rx="15" ry="7" transform="rotate(30 530 138)"/>
+        <ellipse cx="681" cy="120" rx="15" ry="7" transform="rotate(-30 681 120)"/>
+        <ellipse cx="733" cy="120" rx="15" ry="7" transform="rotate(30 733 120)"/>
+      </g>
+    </svg>
+  </div>
+
+  <div class="hero-content">
+    <p class="eyebrow">Poço da Panela · Recife · PE</p>
+
+    <h1>
+      Restaurante
+      <em>Secreto</em>
+    </h1>
+
+    <div class="hero-divider"></div>
+
+    <p class="hero-tagline">
+      Porque tudo que é escondido<br>é mais gostoso.
+    </p>
+
+    <div class="hero-meta">
+      <span>Sábados & Domingos</span>
+      <span>·</span>
+      <span>12h às 17h</span>
+      <span>·</span>
+      <span>A arte da boa comida</span>
+    </div>
+  </div>
+</section>
+
+<!-- ────────────────── NAV ────────────────── -->
+<nav class="nav-sticky">
+  <div class="nav-inner">
+    <a href="#entradas">Entradas</a>
+    <a href="#pratos">Pratos</a>
+    <a href="#sobremesas">Sobremesas</a>
+    <a href="#bebidas">Bebidas</a>
+    <a href="#sobre">Sobre</a>
+  </div>
+</nav>
+
+<!-- ────────────────── ENTRADAS ────────────────── -->
+<div id="entradas">
+  <div class="section">
+    <div class="section-header">
+      <span class="section-label">01</span>
+      <h2 class="section-title">Entradas</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="prato">
+      <div class="prato-nome">Pães da Casa com Manteiga de Ervas</div>
+      <div class="prato-preco">R$ 28</div>
+      <div class="prato-desc">Pão artesanal assado no dia, servido com manteiga aromatizada com ervas frescas colhidas no nosso jardim — alecrim, manjericão e tomilho.</div>
+    </div>
+
+    <div class="prato">
+      <div class="prato-nome">Bruschetta de Tomate & Basilicão</div>
+      <div class="prato-preco">R$ 32</div>
+      <div class="prato-desc">Fatias douradas de pão de fermentação natural, cobertas com tomate concassê, azeite de qualidade e folhas frescas de basilicão do jardim.</div>
+    </div>
+
+    <div class="prato">
+      <div class="prato-nome">Tábua de Frios Nordestinos</div>
+      <div class="prato-preco">R$ 48</div>
+      <div class="prato-desc">Seleção de queijo coalho curado, carne-de-sol em lascas, manteiga de garrafa e rapadura fina. Acompanha melado e tapioca crocante.</div>
+    </div>
+
+    <div class="prato">
+      <div class="prato-nome">Caldo de Cana com Limão</div>
+      <div class="prato-preco">R$ 18</div>
+      <div class="prato-desc">Aperitivo refrescante para abrir o paladar. Servido na hora, gelado e com rodela de limão tahiti.</div>
+    </div>
+
+    <div class="nota-jardim">
+      <p><strong>Nosso jardim.</strong> As ervas frescas que perfumam a nossa cozinha são cultivadas aqui mesmo, no quintal da casa centenária. Do canteiro ao prato, sem pressa.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ────────────────── PRATOS ────────────────── -->
+<div class="bg-alt" id="pratos">
+  <div class="section">
+    <div class="section-header">
+      <span class="section-label">02</span>
+      <h2 class="section-title">Pratos Principais</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <!-- DESTAQUE -->
+    <div class="prato prato-destaque">
+      <div class="prato-nome">Ragú de Carne da Casa</div>
+      <div class="prato-preco">R$ 89</div>
+      <div class="prato-desc">Músculo bovino cozinhado lentamente por horas em molho encorpado de tomates, vinho tinto e ervas frescas. Servido sobre polenta cremosa ao alecrim, com queijo parmesão ralado na hora. O prato que define o Secreto.</div>
+      <span class="prato-badge">Assinatura do Secreto</span>
+    </div>
+
+    <div class="prato">
+      <div class="prato-nome">Mini Lasanha de Abobrinha</div>
+      <div class="prato-preco">R$ 72</div>
+      <div class="prato-desc">Camadas delicadas de massa fresca intercaladas com abobrinha refogada, ricota temperada com ervas do jardim e molho béchamel. Gratinada no forno até dourar. Uma surpresa vegetariana que conquista.</div>
+      <span class="prato-badge">Vegetariano</span>
+    </div>
+
+    <div class="prato">
+      <div class="prato-nome">Vatapá Pernambucano</div>
+      <div class="prato-preco">R$ 82</div>
+      <div class="prato-desc">Receita afetiva da terra, preparada com pão de forma, leite de coco, amendoim, camarão seco e azeite de dendê. Servido com arroz branco e farofa de castanha. Nordeste puro no prato.</div>
+    </div>
+
+    <div class="prato">
+      <div class="prato-nome">Frango Assado com Ervas do Quintal</div>
+      <div class="prato-preco">R$ 76</div>
+      <div class="prato-desc">Coxa e sobrecoxa marinadas por 12 horas em alecrim, tomilho, limão e alho assado, depois tostadas na frigideira e finalizadas no forno. Acompanha purê de batata-doce e salada verde.</div>
+    </div>
+
+    <div class="prato">
+      <div class="prato-nome">Peixe do Dia ao Molho de Maracujá</div>
+      <div class="prato-preco">consulte</div>
+      <div class="prato-desc">O peixe chega fresco na manhã de cada fim de semana. Grelhado com azeite e ervas, banhado em molho agridoce de maracujá com raspas de limão. Acompanhamentos da estação.</div>
+    </div>
+
+    <div class="prato">
+      <div class="prato-nome">Arroz de Pato com Linguiça Artesanal</div>
+      <div class="prato-preco">R$ 95</div>
+      <div class="prato-desc">Pato confitado desfiado sobre arroz caldoso refogado com linguiça calabresa artesanal, azeitonas e cheiro-verde. Prato de partilha — serve dois confortavelmente.</div>
+      <span class="prato-badge">Para Partilhar</span>
+    </div>
+  </div>
+</div>
+
+<!-- ────────────────── SOBREMESAS ────────────────── -->
+<div id="sobremesas">
+  <div class="section">
+    <div class="section-header">
+      <span class="section-label">03</span>
+      <h2 class="section-title">Sobremesas</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="prato">
+      <div class="prato-nome">Pudim de Leite Condensado</div>
+      <div class="prato-preco">R$ 26</div>
+      <div class="prato-desc">Receita clássica, feita com leite integral e ovos caipiras. Caramelo escuro, textura de veludo. O tipo de sobremesa que faz alguém se lembrar da avó.</div>
+    </div>
+
+    <div class="prato">
+      <div class="prato-nome">Bolo do Dia</div>
+      <div class="prato-preco">R$ 22</div>
+      <div class="prato-desc">Muda todo fim de semana — de fubá com calda de laranja a bolo de cenoura com ganache. Pergunte ao Paulo ou ao Miguel o que saiu do forno hoje.</div>
+    </div>
+
+    <div class="prato">
+      <div class="prato-nome">Mousse de Maracujá com Farofa Doce</div>
+      <div class="prato-preco">R$ 28</div>
+      <div class="prato-desc">Mousse aerado de maracujá da estação, servido com farofa crocante de castanha-de-caju e raspas de limão. Acidez, doçura e textura no mesmo prato.</div>
+    </div>
+
+    <div class="prato">
+      <div class="prato-nome">Compota da Casa com Queijo Coalho</div>
+      <div class="prato-preco">R$ 24</div>
+      <div class="prato-desc">Compota de goiaba feita em casa, servida morna sobre fatia grossa de queijo coalho levemente grelhado. Casamento nordestino que nunca envelhece.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ────────────────── BEBIDAS ────────────────── -->
+<div class="bg-alt" id="bebidas">
+  <div class="section">
+    <div class="section-header">
+      <span class="section-label">04</span>
+      <h2 class="section-title">Bebidas</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <p style="font-size:0.8rem; color:var(--creme-suave); opacity:0.7; margin-bottom:2rem; letter-spacing:0.05em;">
+      Sucos naturais, vinhos e águas. Sem industrializados, por escolha.
+    </p>
+
+    <div class="bebida-row">
+      <div>
+        <div class="bebida-nome">Sucos Naturais da Estação</div>
+        <div class="bebida-desc">Caju, graviola, acerola, tamarindo, maracujá — o que a safra trouxer.</div>
+      </div>
+      <div class="bebida-preco">R$ 18</div>
+    </div>
+
+    <div class="bebida-row">
+      <div>
+        <div class="bebida-nome">Limonada Suíça da Casa</div>
+        <div class="bebida-desc">Limão tahiti batido com leite condensado e leite de coco. Fresca e encorpada.</div>
+      </div>
+      <div class="bebida-preco">R$ 22</div>
+    </div>
+
+    <div class="bebida-row">
+      <div>
+        <div class="bebida-nome">Água com Gás · Água Sem Gás</div>
+        <div class="bebida-desc">500ml</div>
+      </div>
+      <div class="bebida-preco">R$ 8</div>
+    </div>
+
+    <div class="bebida-row">
+      <div>
+        <div class="bebida-nome">Vinho Tinto / Branco (taça)</div>
+        <div class="bebida-desc">Seleção semanal — pergunte a safra disponível.</div>
+      </div>
+      <div class="bebida-preco">R$ 28</div>
+    </div>
+
+    <div class="bebida-row">
+      <div>
+        <div class="bebida-nome">Vinho (garrafa)</div>
+        <div class="bebida-desc">Carta reduzida e cuidadosamente escolhida.</div>
+      </div>
+      <div class="bebida-preco">a partir de R$ 85</div>
+    </div>
+
+    <div class="bebida-row">
+      <div>
+        <div class="bebida-nome">Cerveja Artesanal</div>
+        <div class="bebida-desc">Long neck — rótulos regionais pernambucanos.</div>
+      </div>
+      <div class="bebida-preco">R$ 18</div>
+    </div>
+
+    <div class="bebida-row">
+      <div>
+        <div class="bebida-nome">Café Espresso / Coado</div>
+        <div class="bebida-desc">Grãos de origem nordestina torrados por pequenos produtores.</div>
+      </div>
+      <div class="bebida-preco">R$ 9</div>
+    </div>
+  </div>
+</div>
+
+<!-- ────────────────── SOBRE ────────────────── -->
+<div id="sobre">
+  <div class="section">
+    <div class="section-header">
+      <span class="section-label">05</span>
+      <h2 class="section-title">O Segredo</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="sobre-grid">
+      <div class="sobre-texto">
+        <p>
+          Numa casa com mais de cem anos, escondida na Estrada Real do Poço, em Recife, 
+          <strong>Paulo e Miguel</strong> criaram um lugar onde o tempo desacelera e a comida tem história.
+        </p>
+        <p>
+          O Restaurante Secreto abre apenas nos fins de semana — não por limitação, mas por escolha.
+          É tempo suficiente para cozinhar bem, receber com atenção e fazer de cada almoço um momento que alguém vai querer repetir.
+        </p>
+        <p>
+          O segredo? As ervas vêm do jardim ali atrás. 
+          Os pratos saem do coração da cozinha pernambucana — com os pés no chão do Nordeste e os olhos abertos para o que há de bom no mundo.
+        </p>
+      </div>
+
+      <div class="sobre-info">
+        <div class="info-bloco">
+          <div class="info-label">Funcionamento</div>
+          <div class="info-valor">Sábados e Domingos<br>12h às 17h</div>
+        </div>
+        <div class="info-bloco">
+          <div class="info-label">Endereço</div>
+          <div class="info-valor"><br>Poço da Panela — Recife, PE</div>
+        </div>
+        <div class="info-bloco">
+          <div class="info-label">Contato & Reservas</div>
+          <div class="info-valor"></div>
+        </div>
+        <div class="info-bloco">
+          <div class="info-label">Redes Sociais</div>
+          <div class="info-valor"></div>
+        </div>
+        <div class="info-bloco">
+          <div class="info-label">Ticket Médio</div>
+          <div class="info-valor">R$ 100 – 120 por pessoa</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ────────────────── RODAPÉ ────────────────── -->
+<footer>
+  <div class="footer-logo">Restaurante Secreto</div>
+  <div class="footer-tagline">A arte da boa comida — porque tudo que é escondido é mais gostoso.</div>
+  <div class="footer-links">
+    <a href=""></a>
+    <a href=""></a>
+    <a href=""></a>
+  </div>
+</footer>
+
+</body>
+</html>
