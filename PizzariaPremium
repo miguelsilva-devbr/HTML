@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title> pizzaria - premium - Cardápio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@300;400;500;600&family=Bebas+Neue&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --fogo: #C9321F;
+      --brasa: #E85D04;
+      --noite: #0F0D0B;
+      --carvao: #1C1915;
+      --fumo: #2A2520;
+      --cinza-quente: #5C5047;
+      --bege: #F0E8DC;
+      --creme: #FAF5EE;
+      --ouro: #D4A843;
+      --texto: #2A2520;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--noite);
+      color: var(--bege);
+      overflow-x: hidden;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      padding: 2rem;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 80%, rgba(201,50,31,0.35) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 40% at 30% 20%, rgba(232,93,4,0.15) 0%, transparent 60%),
+        var(--noite);
+    }
+
+    /* Chama decorativa */
+    .flame-ring {
+      position: absolute;
+      bottom: -10%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 700px;
+      height: 400px;
+      background: radial-gradient(ellipse at 50% 100%, rgba(201,50,31,0.5) 0%, rgba(232,93,4,0.2) 40%, transparent 70%);
+      filter: blur(40px);
+      pointer-events: none;
+    }
+
+    .hero-content { position: relative; z-index: 2; max-width: 760px; }
+
+    .badge {
+      display: inline-block;
+      border: 1px solid rgba(212,168,67,0.6);
+      color: var(--ouro);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.35rem 1rem;
+      border-radius: 2px;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-pizza-icon {
+      font-size: 5rem;
+      line-height: 1;
+      margin-bottom: 1rem;
+      display: block;
+      filter: drop-shadow(0 0 30px rgba(201,50,31,0.8));
+      animation: pulso 3s ease-in-out infinite;
+    }
+
+    @keyframes pulso {
+      0%, 100% { filter: drop-shadow(0 0 30px rgba(201,50,31,0.8)); }
+      50% { filter: drop-shadow(0 0 50px rgba(232,93,4,1)); }
+    }
+
+    .hero-titulo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(4rem, 12vw, 9rem);
+      letter-spacing: 0.02em;
+      line-height: 0.9;
+      color: #fff;
+      text-shadow: 0 0 60px rgba(201,50,31,0.5);
+    }
+
+    .hero-titulo span {
+      display: block;
+      -webkit-text-stroke: 1px var(--fogo);
+      color: transparent;
+      font-size: clamp(3rem, 9vw, 7rem);
+    }
+
+    .hero-sub {
+      margin-top: 1.5rem;
+      font-size: 1rem;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      color: rgba(240,232,220,0.7);
+      text-transform: uppercase;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 2.5rem;
+      background: var(--fogo);
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.9rem 2rem;
+      border-radius: 3px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .hero-cta:hover { background: var(--brasa); transform: translateY(-2px); }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      color: rgba(240,232,220,0.4);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      z-index: 2;
+    }
+    .scroll-arrow {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, rgba(240,232,220,0.4), transparent);
+      animation: desce 1.5s ease-in-out infinite;
+    }
+    @keyframes desce {
+      0%, 100% { transform: scaleY(1); opacity: 1; }
+      50% { transform: scaleY(0.6); opacity: 0.4; }
+    }
+
+    /* ── NAV ── */
+    .sticky-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(15,13,11,0.95);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(201,50,31,0.2);
+    }
+
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .nav-inner::-webkit-scrollbar { display: none; }
+
+    .nav-brand {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      color: var(--fogo);
+      white-space: nowrap;
+      padding: 1rem 0;
+      margin-right: auto;
+    }
+
+    .nav-link {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(240,232,220,0.6);
+      text-decoration: none;
+      padding: 1rem 0.5rem;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .nav-link:hover, .nav-link.active { color: var(--fogo); border-bottom-color: var(--fogo); }
+
+    /* ── SEÇÕES ── */
+    .section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 5rem 1.5rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: flex-end;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(201,50,31,0.25);
+    }
+
+    .section-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 4rem;
+      line-height: 1;
+      color: rgba(201,50,31,0.25);
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.1;
+    }
+
+    .section-title em {
+      font-style: italic;
+      color: var(--fogo);
+    }
+
+    .section-desc {
+      margin-top: 0.4rem;
+      font-size: 0.85rem;
+      color: rgba(240,232,220,0.5);
+      letter-spacing: 0.05em;
+      font-weight: 300;
+    }
+
+    /* ── GRID PIZZAS ── */
+    .pizza-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5px;
+      background: rgba(201,50,31,0.15);
+    }
+
+    .pizza-card {
+      background: var(--carvao);
+      padding: 1.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      transition: background 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pizza-card::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(to right, transparent, var(--fogo), transparent);
+      transform: scaleX(0);
+      transition: transform 0.3s;
+    }
+
+    .pizza-card:hover { background: var(--fumo); }
+    .pizza-card:hover::before { transform: scaleX(1); }
+
+    .pizza-tag {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--ouro);
+    }
+
+    .pizza-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.2;
+    }
+
+    .pizza-ing {
+      font-size: 0.8rem;
+      color: rgba(240,232,220,0.5);
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    .pizza-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+      padding-top: 1rem;
+    }
+
+    .pizza-price {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      color: var(--fogo);
+      letter-spacing: 0.03em;
+    }
+
+    .pizza-sizes {
+      display: flex;
+      gap: 0.4rem;
+    }
+
+    .size-tag {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(240,232,220,0.4);
+      border: 1px solid rgba(240,232,220,0.15);
+      padding: 0.2rem 0.5rem;
+      border-radius: 2px;
+    }
+
+    /* ── DESTAQUE / ESPECIAL ── */
+    .pizza-card.destaque {
+      background: linear-gradient(135deg, #1f1410 0%, #2d1a10 100%);
+      border: 1px solid rgba(212,168,67,0.3);
+    }
+
+    .pizza-card.destaque .pizza-tag { color: var(--fogo); }
+    .pizza-card.destaque .pizza-price { color: var(--ouro); }
+
+    /* ── BEBIDAS ── */
+    .bebidas-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1px;
+      background: rgba(201,50,31,0.1);
+    }
+
+    .bebida-card {
+      background: var(--carvao);
+      padding: 1.4rem 1.8rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.2s;
+    }
+    .bebida-card:hover { background: var(--fumo); }
+
+    .bebida-nome {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--bege);
+    }
+
+    .bebida-det {
+      font-size: 0.75rem;
+      color: rgba(240,232,220,0.4);
+      margin-top: 0.2rem;
+    }
+
+    .bebida-preco {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.3rem;
+      color: var(--fogo);
+    }
+
+    /* ── COMBOS ── */
+    .combos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .combo-card {
+      background: var(--carvao);
+      border: 1px solid rgba(201,50,31,0.3);
+      border-radius: 4px;
+      padding: 2rem;
+      position: relative;
+    }
+
+    .combo-label {
+      position: absolute;
+      top: -1px;
+      left: 1.5rem;
+      background: var(--fogo);
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.75rem;
+    }
+
+    .combo-nome {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #fff;
+      margin-top: 0.5rem;
+    }
+
+    .combo-inc {
+      margin-top: 0.8rem;
+      font-size: 0.82rem;
+      color: rgba(240,232,220,0.55);
+      line-height: 1.7;
+    }
+
+    .combo-preco-row {
+      display: flex;
+      align-items: baseline;
+      gap: 0.8rem;
+      margin-top: 1.5rem;
+    }
+
+    .combo-preco {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.2rem;
+      color: var(--fogo);
+    }
+
+    .combo-economia {
+      font-size: 0.75rem;
+      color: var(--ouro);
+      font-weight: 600;
+      background: rgba(212,168,67,0.12);
+      padding: 0.2rem 0.6rem;
+      border-radius: 2px;
+    }
+
+    /* ── DIVISOR ── */
+    .divisor {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    .divisor hr {
+      border: none;
+      border-top: 1px solid rgba(201,50,31,0.2);
+    }
+
+    /* ── FAIXA LEMA ── */
+    .faixa {
+      background: var(--fogo);
+      overflow: hidden;
+      padding: 1rem 0;
+    }
+
+    .faixa-inner {
+      display: flex;
+      gap: 3rem;
+      animation: rola 20s linear infinite;
+      white-space: nowrap;
+    }
+
+    @keyframes rola {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    .faixa-item {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.9);
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .faixa-item::after {
+      content: '🍕';
+      font-size: 1rem;
+    }
+
+    /* ── INFO ── */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .info-card {
+      background: var(--carvao);
+      padding: 2rem;
+      border-left: 3px solid var(--fogo);
+    }
+
+    .info-icon { font-size: 1.8rem; margin-bottom: 0.8rem; }
+    .info-titulo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.4rem;
+    }
+    .info-texto {
+      font-size: 0.82rem;
+      color: rgba(240,232,220,0.55);
+      line-height: 1.7;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--carvao);
+      border-top: 1px solid rgba(201,50,31,0.2);
+      padding: 3rem 1.5rem;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3rem;
+      color: var(--fogo);
+      letter-spacing: 0.05em;
+      line-height: 1;
+    }
+
+    .footer-sub {
+      font-size: 0.75rem;
+      color: rgba(240,232,220,0.4);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-top: 0.3rem;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 1.5rem;
+    }
+
+    .footer-link {
+      font-size: 0.8rem;
+      color: rgba(240,232,220,0.5);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      transition: color 0.2s;
+    }
+    .footer-link:hover { color: var(--fogo); }
+
+    .footer-copy {
+      margin-top: 2rem;
+      font-size: 0.72rem;
+      color: rgba(240,232,220,0.2);
+    }
+
+    /* ── WHATSAPP FLUTUANTE ── */
+    .wpp-btn {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 200;
+      width: 56px;
+      height: 56px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .wpp-btn:hover { transform: scale(1.1); box-shadow: 0 6px 30px rgba(37,211,102,0.6); }
+    .wpp-btn svg { width: 28px; height: 28px; fill: #fff; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .pizza-grid { grid-template-columns: 1fr; }
+      .combos-grid { grid-template-columns: 1fr; }
+      .info-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="flame-ring"></div>
+  <div class="hero-content">
+    <div class="badge">📍 Vasco da Gama · Recife, PE</div>
+    <span class="hero-pizza-icon">🍕</span>
+    <h1 class="hero-titulo">
+      Nossa
+      <span>Pizza</span>
+    </h1>
+    <p class="hero-sub">A melhor pizza da região — feita com dedicação, entregue com rapidez</p>
+    <a href="#salgadas" class="hero-cta">Ver Cardápio Completo ↓</a>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-arrow"></div>
+    <span>rolar</span>
+  </div>
+</section>
+
+<!-- NAV -->
+<nav class="sticky-nav">
+  <div class="nav-inner">
+    <div class="nav-brand">Nossa Pizza</div>
+    <a href="#salgadas" class="nav-link">Salgadas</a>
+    <a href="#especiais" class="nav-link">Especiais</a>
+    <a href="#doces" class="nav-link">Doces</a>
+    <a href="#combos" class="nav-link">Combos</a>
+    <a href="#bebidas" class="nav-link">Bebidas</a>
+    <a href="#info" class="nav-link">Pedidos</a>
+  </div>
+</nav>
+
+<!-- FAIXA -->
+<div class="faixa">
+  <div class="faixa-inner">
+    <span class="faixa-item">Entrega Rápida</span>
+    <span class="faixa-item">Massa Artesanal</span>
+    <span class="faixa-item">Ingredientes Frescos</span>
+    <span class="faixa-item">Fazendo Sempre o Melhor</span>
+    <span class="faixa-item">A Melhor Pizza da Região</span>
+    <span class="faixa-item">Vasco da Gama · Recife</span>
+    <!-- duplicado para loop contínuo -->
+    <span class="faixa-item">Entrega Rápida</span>
+    <span class="faixa-item">Massa Artesanal</span>
+    <span class="faixa-item">Ingredientes Frescos</span>
+    <span class="faixa-item">Fazendo Sempre o Melhor</span>
+    <span class="faixa-item">A Melhor Pizza da Região</span>
+    <span class="faixa-item">Vasco da Gama · Recife</span>
+  </div>
+</div>
+
+<!-- SALGADAS -->
+<section id="salgadas">
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">01</div>
+      <div>
+        <h2 class="section-title">Pizzas <em>Salgadas</em></h2>
+        <p class="section-desc">Clássicos que todo mundo ama, feitos do nosso jeito</p>
+      </div>
+    </div>
+    <div class="pizza-grid">
+
+      <div class="pizza-card">
+        <span class="pizza-tag">🏆 Mais Pedida</span>
+        <div class="pizza-name">Calabresa</div>
+        <p class="pizza-ing">Molho de tomate, mussarela, calabresa fatiada, cebola em rodelas, orégano e azeitonas</p>
+        <div class="pizza-footer">
+          <div class="pizza-price">A partir de R$45</div>
+          <div class="pizza-sizes"><span class="size-tag">M</span><span class="size-tag">G</span><span class="size-tag">GG</span></div>
+        </div>
+      </div>
+
+      <div class="pizza-card">
+        <span class="pizza-tag">❤️ Favorita</span>
+        <div class="pizza-name">Frango com Catupiry</div>
+        <p class="pizza-ing">Molho, mussarela, frango desfiado temperado, catupiry original cremoso e orégano</p>
+        <div class="pizza-footer">
+          <div class="pizza-price">A partir de R$47</div>
+          <div class="pizza-sizes"><span class="size-tag">M</span><span class="size-tag">G</span><span class="size-tag">GG</span></div>
+        </div>
+      </div>
+
+      <div class="pizza-card">
+        <span class="pizza-tag">Clássica</span>
+        <div class="pizza-name">Portuguesa</div>
+        <p class="pizza-ing">Molho, mussarela, presunto, ovos, cebola, ervilha, pimentão e azeitonas</p>
+        <div class="pizza-footer">
+          <div class="pizza-price">A partir de R$47</div>
+          <div class="pizza-sizes"><span class="size-tag">M</span><span class="size-tag">G</span><span class="size-tag">GG</span></div>
+        </div>
+      </div>
+
+      <div class="pizza-card">
+        <span class="pizza-tag">Clássica</span>
+        <div class="pizza-name">Quatro Queijos</div>
+        <p class="pizza-ing">Molho, mussarela, provolone, catupiry e parmesão ralado na hora</p>
+        <div class="pizza-footer">
+          <div class="pizza-price">A partir de R$49</div>
+          <div class="pizza-sizes"><span class="size-tag">M</span><span class="size-tag">G</span><span class="size-tag">GG</span></div>
+        </div>
+      </div>
+
+      <div class="pizza-card">
+        <span class="pizza-tag">Clássica</span>
+        <div class="pizza-name">Margherita</div>
+        <p class="pizza-ing">Molho de tomate, mussarela fatiada, tomates frescos, manjericão e azeite</p>
+        <div class="pizza-footer">
+          <div class="pizza-price">A partir de R$43</div>
+          <div class="pizza-sizes"><span class="size-tag">M</span><span class="size-tag">G</span><span class="size-tag">GG</span></div>
+        </div>
+      </div>
+
+      <div class="pizza-card">
+        <span class="pizza-tag">Clássica</span>
+        <div class="pizza-name">Pepperoni</div>
+        <p class="pizza-ing">Molho, mussarela generosa e pepperoni fatiado com toque levemente defumado</p>
+        <div class="pizza-footer">
+          <div class="pizza-price">A partir de R$49</div>
+          <div class="pizza-sizes"><span class="size-tag">M</span><span class="size-tag">G</span><span class="size-tag">GG</span></div>
+        </div>
+      </div>
+
+      <div class="pizza-card">
+        <span class="pizza-tag">Clássica</span>
+        <div class="pizza-name">Mussarela</div>
+        <p class="pizza-ing">Molho caseiro, dupla camada de mussarela, orégano e um fio de azeite</p>
+        <div class="pizza-footer">
+          <div class="pizza-price">A partir de R$40</div>
+          <div class="pizza-sizes"><span class="size-tag">M</span><span class="size-tag">G</span><span class="size-tag">GG</span></div>
+        </div>
+      </div>
+
+      <div class="pizza-card">
+        <span class="pizza-tag">Clássica</span>
+        <div class="pizza-name">Bacon</div>
+        <p class="pizza-ing">Molho, mussarela, bacon crocante em cubos, cebola caramelizada e orégano</p>
+        <div class="pizza-footer">
+          <div class="pizza-price">A partir de R$49</div>
+          <div class="pizza-sizes"><span class="size-tag">M</span><span class="size-tag">G</span><span class="size-tag">GG</span></div>
+        </div>
+      </div>
+
+      <div class="pizza-card">
+        <span class="pizza-tag">Clássica</span>
+        <div class="pizza-name">Palmito</div>
+        <p class="pizza-ing">Molho, mussarela, palmito pupunha refogado, presunto e azeitonas</p>
+        <div class="pizza-footer">
+          <div class="pizza-price">A partir de R$47</div>
+          <div class="pizza-sizes"><span class="size-tag">M</span><span class="size-tag">G</span><span class="size-tag">GG</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ESPECIAIS -->
+<section id="especiais" style="background: var(--carvao);">
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">02</div>
+      <div>
+        <h2 class="section-title">Especiais da <em>Casa</em></h2>
+        <p class="section-desc">Criações exclusivas que fazem a Nossa Pizza ser única</p>
+      </div>
+    </div>
+    <div class="pizza-grid">
+
+      <div class="pizza-card destaque">
+        <span class="pizza-tag">⭐ Carro-Chefe</span>
+        <div class="pizza-name">Pizza da Nossa Casa</div>
+        <p class="pizza-ing">Molho artesanal, mussarela, calabresa, frango, bacon crocante, cebola roxa, catupiry e orégano — tudo em uma só</p>
+        <div class="pizza-footer">
+          <div class="pizza-price">A partir de R$59</div>
+          <div class="pizza-sizes"><span class="size-tag">G</span><span class="size-tag">GG</span></div>
+        </div>
+      </div>
+
+      <div class="pizza-card destaque">
+        <span class="pizza-tag">🌶️ Para os Corajosos</span>
+        <div class="pizza-name">Nordestina</div>
+        <p class="pizza-ing">Molho, mussarela, carne de sol desfiada, cebola roxa, pimenta biquinho, coalho grelhado e coentro fresco</p>
+        <div class="pizza-footer">
+          <div class="pizza-price">A partir de R$57</div>
+          <div class="pizza-sizes"><span class="size-tag">G</span><span class="size-tag">GG</span></div>
+        </div>
+      </div>
+
+      <div class="pizza-card destaque">
+        <span class="pizza-tag">🔥 Nova</span>
+        <div class="pizza-name">Camarão Especial</div>
+        <p class="pizza-ing">Molho, mussarela, camarão temperado ao alho, tomate seco, catupiry e salsinha</p>
+        <div class="pizza-footer">
+          <div class="pizza-price">A partir de R$65</div>
+          <div class="pizza-sizes"><span class="size-tag">G</span><span class="size-tag">GG</span></div>
+        </div>
+      </div>
+
+      <div class="pizza-card destaque">
+        <span class="pizza-tag">Exclusiva</span>
+        <div class="pizza-name">Frango com Cheddar</div>
+        <p class="pizza-ing">Molho, mussarela, frango desfiado, cheddar cremoso, bacon e cebola caramelizada</p>
+        <div class="pizza-footer">
+          <div class="pizza-price">A partir de R$53</div>
+          <div class="pizza-sizes"><span class="size-tag">G</span><span class="size-tag">GG</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- DOCES -->
+<section id="doces">
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">03</div>
+      <div>
+        <h2 class="section-title">Pizzas <em>Doces</em></h2>
+        <p class="section-desc">O fim de noite perfeito, com a mesma qualidade de sempre</p>
+      </div>
+    </div>
+    <div class="pizza-grid">
+
+      <div class="pizza-card">
+        <span class="pizza-tag">🍫 Sucesso</span>
+        <div class="pizza-name">Brigadeiro</div>
+        <p class="pizza-ing">Massa doce, brigadeiro cremoso, granulado de chocolate e leite condensado</p>
+        <div class="pizza-footer">
+          <div class="pizza-price">A partir de R$43</div>
+          <div class="pizza-sizes"><span class="size-tag">M</span><span class="size-tag">G</span></div>
+        </div>
+      </div>
+
+      <div class="pizza-card">
+        <span class="pizza-tag">🍌 Favorita</span>
+        <div class="pizza-name">Banana com Canela</div>
+        <p class="pizza-ing">Massa, banana fatiada, açúcar, canela, manteiga e leite condensado</p>
+        <div class="pizza-footer">
+          <div class="pizza-price">A partir de R$42</div>
+          <div class="pizza-sizes"><span class="size-tag">M</span><span class="size-tag">G</span></div>
+        </div>
+      </div>
+
+      <div class="pizza-card">
+        <span class="pizza-tag">Clássica Doce</span>
+        <div class="pizza-name">Romeu e Julieta</div>
+        <p class="pizza-ing">Massa, mussarela derretida, goiabada cremosa — a combinação de sempre</p>
+        <div class="pizza-footer">
+          <div class="pizza-price">A partir de R$42</div>
+          <div class="pizza-sizes"><span class="size-tag">M</span><span class="size-tag">G</span></div>
+        </div>
+      </div>
+
+      <div class="pizza-card">
+        <span class="pizza-tag">Especial</span>
+        <div class="pizza-name">Nutella com Morango</div>
+        <p class="pizza-ing">Massa, Nutella generosa, morangos frescos fatiados e açúcar de confeiteiro</p>
+        <div class="pizza-footer">
+          <div class="pizza-price">A partir de R$49</div>
+          <div class="pizza-sizes"><span class="size-tag">M</span><span class="size-tag">G</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- COMBOS -->
+<section id="combos" style="background: var(--carvao);">
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">04</div>
+      <div>
+        <h2 class="section-title"><em>Combos</em> Imperdíveis</h2>
+        <p class="section-desc">Mais pizza, mais economia — para reunir a galera</p>
+      </div>
+    </div>
+    <div class="combos-grid">
+
+      <div class="combo-card">
+        <div class="combo-label">Combo Duplo</div>
+        <div class="combo-nome">Casal Perfeito</div>
+        <div class="combo-inc">
+          ✔ 2 Pizzas Grandes (à sua escolha)<br>
+          ✔ 2 Refrigerantes Lata 350ml<br>
+          ✔ Entrega inclusa na área
+        </div>
+        <div class="combo-preco-row">
+          <div class="combo-preco">R$99</div>
+          <div class="combo-economia">Economize R$15</div>
+        </div>
+      </div>
+
+      <div class="combo-card">
+        <div class="combo-label">Combo Família</div>
+        <div class="combo-nome">Festa em Casa</div>
+        <div class="combo-inc">
+          ✔ 3 Pizzas Grandes (à sua escolha)<br>
+          ✔ 1 Refrigerante 2 Litros<br>
+          ✔ 1 Pizza Doce Média de brinde
+        </div>
+        <div class="combo-preco-row">
+          <div class="combo-preco">R$159</div>
+          <div class="combo-economia">Economize R$30</div>
+        </div>
+      </div>
+
+      <div class="combo-card">
+        <div class="combo-label">Combo Solo</div>
+        <div class="combo-nome">Minha Noite</div>
+        <div class="combo-inc">
+          ✔ 1 Pizza Média (sabor à escolha)<br>
+          ✔ 1 Refrigerante Lata 350ml<br>
+          ✔ Entrega expressa
+        </div>
+        <div class="combo-preco-row">
+          <div class="combo-preco">R$52</div>
+          <div class="combo-economia">Economize R$8</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- BEBIDAS -->
+<section id="bebidas">
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">05</div>
+      <div>
+        <h2 class="section-title"><em>Bebidas</em></h2>
+        <p class="section-desc">Para acompanhar cada fatia do jeito certo</p>
+      </div>
+    </div>
+    <div class="bebidas-grid">
+      <div class="bebida-card">
+        <div><div class="bebida-nome">Coca-Cola</div><div class="bebida-det">Lata 350ml</div></div>
+        <div class="bebida-preco">R$6</div>
+      </div>
+      <div class="bebida-card">
+        <div><div class="bebida-nome">Coca-Cola</div><div class="bebida-det">2 Litros</div></div>
+        <div class="bebida-preco">R$15</div>
+      </div>
+      <div class="bebida-card">
+        <div><div class="bebida-nome">Guaraná Antarctica</div><div class="bebida-det">Lata 350ml</div></div>
+        <div class="bebida-preco">R$6</div>
+      </div>
+      <div class="bebida-card">
+        <div><div class="bebida-nome">Guaraná Antarctica</div><div class="bebida-det">2 Litros</div></div>
+        <div class="bebida-preco">R$15</div>
+      </div>
+      <div class="bebida-card">
+        <div><div class="bebida-nome">Água Mineral</div><div class="bebida-det">500ml — com ou sem gás</div></div>
+        <div class="bebida-preco">R$4</div>
+      </div>
+      <div class="bebida-card">
+        <div><div class="bebida-nome">Suco de Caixinha</div><div class="bebida-det">200ml — sabores variados</div></div>
+        <div class="bebida-preco">R$5</div>
+      </div>
+      <div class="bebida-card">
+        <div><div class="bebida-nome">Sprite</div><div class="bebida-det">Lata 350ml</div></div>
+        <div class="bebida-preco">R$6</div>
+      </div>
+      <div class="bebida-card">
+        <div><div class="bebida-nome">Fanta Laranja</div><div class="bebida-det">Lata 350ml</div></div>
+        <div class="bebida-preco">R$6</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAIXA 2 -->
+<div class="faixa">
+  <div class="faixa-inner">
+    <span class="faixa-item">Peça pelo WhatsApp</span>
+    <span class="faixa-item">Pagamento na Entrega</span>
+    <span class="faixa-item">Cartão • Dinheiro • Pix</span>
+    <span class="faixa-item">Delivery e Retirada</span>
+    <span class="faixa-item">Peça pelo WhatsApp</span>
+    <span class="faixa-item">Pagamento na Entrega</span>
+    <span class="faixa-item">Cartão • Dinheiro • Pix</span>
+    <span class="faixa-item">Delivery e Retirada</span>
+  </div>
+</div>
+
+<!-- INFO -->
+<section id="info" style="background: var(--carvao);">
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">06</div>
+      <div>
+        <h2 class="section-title">Como <em>Pedir</em></h2>
+        <p class="section-desc">Rápido, fácil e seguro — do nosso forno até você</p>
+      </div>
+    </div>
+    <div class="info-grid">
+
+      <div class="info-card">
+        <div class="info-icon">📱</div>
+        <div class="info-titulo">WhatsApp & Redes</div>
+        <div class="info-texto">Acesse nosso link de pedidos ou chame a gente no direct do Instagram <strong>@pizzaria_nossapizza</strong>. Atendimento rápido e sem complicação.</div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-icon">🛵</div>
+        <div class="info-titulo">Delivery</div>
+        <div class="info-texto">Entregamos na região do Vasco da Gama e bairros vizinhos. Acompanhe seu pedido em tempo real pelo WhatsApp.</div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-icon">🕐</div>
+        <div class="info-titulo">Horário</div>
+        <div class="info-texto">Funcionamos todos os dias a partir das <strong>18h</strong>. Domingo tem horário especial — confira no Instagram para promoções semanais.</div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-icon">💳</div>
+        <div class="info-titulo">Formas de Pagamento</div>
+        <div class="info-texto">Aceitamos <strong>Dinheiro, Pix, Cartão de Débito e Crédito</strong>. Pague na entrega ou antecipe pelo Pix para ganhar prioridade no preparo.</div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-icon">✂️</div>
+        <div class="info-titulo">Meio a Meio</div>
+        <div class="info-texto">Não consegue escolher? Peça metade-metade em qualquer tamanho! É só informar os dois sabores ao fazer seu pedido.</div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-icon">📍</div>
+        <div class="info-titulo">Localização</div>
+        <div class="info-texto">Vasco da Gama, Recife — PE. Clique para abrir no Google Maps e ver o caminho até nós ou confirmar sua área de entrega.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Nossa Pizza</div>
+  <div class="footer-sub">A melhor pizza da região · Vasco da Gama · Recife, PE</div>
+  <div class="footer-links">
+    <a href="https://www.instagram.com/pizzaria_nossapizza/" class="footer-link" target="_blank">Instagram</a>
+    <a href="https://www.ifood.com.br/delivery/recife-pe/nossa-pizza-vasco-da-gama/a756eb5e-a578-489d-9d9a-2988115d0df1" class="footer-link" target="_blank">iFood</a>
+    <a href="https://maps.app.goo.gl/FZX5xg4AAUYwbFux7" class="footer-link" target="_blank">Google Maps</a>
+  </div>
+  <div class="footer-copy">© 2025 Nossa Pizza — Todos os preços são aproximados e podem sofrer alterações. Imagens meramente ilustrativas.</div>
+</footer>
+
+<!-- BOTÃO WHATSAPP -->
+<a href="https://wa.me/5581999999999?text=Olá!%20Quero%20fazer%20um%20pedido%20🍕" class="wpp-btn" target="_blank" aria-label="Pedido pelo WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
+
+<script>
+  // Highlight nav ao rolar
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        const active = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { threshold: 0.3 });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
